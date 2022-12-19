@@ -1,8 +1,5 @@
 #include "framework.h"
-// GameSystemクラスを使えるようにする
-#include "GameSystem.h"
-// Direct3Dクラスを使えるようにする
-#include "Source/DirectX/Direct3D.h"
+#include "Source\environment.h"
 
 // ゲームの初期設定を行う
 void GameSystem::initialize()
@@ -11,21 +8,17 @@ void GameSystem::initialize()
 	//岡内大樹です！
 	// 武井ヤマトです！
 	//お尻
+	//お尻
 }
 
 // このゲームの時間を進める(処理を実行する)
 void GameSystem::execute()
 {
-    // 画面を青色で塗りつぶす
-    /*float color[4] = { 0.2f, 0.2f, 1.0f, 1.0f };
-    D3D.m_deviceContext->ClearRenderTargetView(D3D.m_backBufferView.Get(), color);*/
-
-	// 三角形の描画
 	{
 		// １頂点の形式(今回は座標だけ)
 		struct Vertex
 		{
-			DirectX::XMFLOAT3 pos;	// 座標
+			XMFLOAT3 pos;	// 座標
 			float color[4];	// 色
 		};
 		Vertex vertexCube[36] = {
@@ -72,10 +65,10 @@ void GameSystem::execute()
 			 { {  0.5f, -0.5f, -0.5f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
 		};
 
-		DirectX::XMMATRIX rotationMatrix = DirectX::XMMatrixRotationAxis(DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation);
+		XMMATRIX rotationMatrix = XMMatrixRotationAxis(XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation);
 		for (int i = 0; i < 36; i++)
 		{
-			DirectX::XMStoreFloat3(&vertexCube[i].pos, DirectX::XMVector3Transform(DirectX::XMLoadFloat3(&vertexCube[i].pos), rotationMatrix));
+			XMStoreFloat3(&vertexCube[i].pos, XMVector3Transform(XMLoadFloat3(&vertexCube[i].pos), rotationMatrix));
 		}
 		rotation += 0.001f;
 
@@ -89,9 +82,9 @@ void GameSystem::execute()
 		};*/
 
 		struct ConstantBuffer {
-			DirectX::XMFLOAT4X4 world;
-			DirectX::XMFLOAT4X4 view;
-			DirectX::XMFLOAT4X4 projection;
+			XMFLOAT4X4 world;
+			XMFLOAT4X4 view;
+			XMFLOAT4X4 projection;
 		};
 
 		//深度ステンシルバッファ作成
@@ -174,12 +167,12 @@ void GameSystem::execute()
 		D3D.m_device->CreateBuffer(&cbDesc, NULL, &constantBuffer);
 
 		//定数バッファに値を入れる
-		DirectX::XMMATRIX worldMatrix = DirectX::XMMatrixTranslation(0.0f, 0.0f, 0.0f);
+		XMMATRIX worldMatrix = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
 
-		DirectX::XMVECTOR eye = DirectX::XMVectorSet(-4.0f, -4.0f, -4.0f, 0.0f);
-		DirectX::XMVECTOR focus = DirectX::XMVectorSet(0.0f, 0.0f, 0.5f, 0.0f);
-		DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-		DirectX::XMMATRIX viewMatrix = DirectX::XMMatrixLookAtLH(eye, focus, up);
+		XMVECTOR eye = XMVectorSet(-4.0f, -4.0f, -4.0f, 0.0f);
+		XMVECTOR focus = XMVectorSet(0.0f, 0.0f, 0.5f, 0.0f);
+		XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+		XMMATRIX viewMatrix = XMMatrixLookAtLH(eye, focus, up);
 
 		float    fov = DirectX::XMConvertToRadians(45.0f);
 		float    aspect = 1280.0f / 720.0f;
@@ -195,7 +188,6 @@ void GameSystem::execute()
 
 		//++++++++++++++++++++ ここから描画していきます ++++++++++++++++++++
 
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; //red,green,blue,alpha
 		// ここからは「描画の職人」デバイスコンテキストくんが大活躍
 
 		// 頂点バッファを描画で使えるようにセットする
@@ -207,6 +199,8 @@ void GameSystem::execute()
 		// プロミティブ・トポロジーをセット
 		D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		D3D.m_deviceContext->VSSetConstantBuffers(0, 1, &constantBuffer);
+
+		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		D3D.m_deviceContext->ClearRenderTargetView(D3D.m_backBufferView.Get(), clearColor);
 		D3D.m_deviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 

@@ -2,10 +2,8 @@
 //
 
 #include "framework.h"
+#include "Source\environment.h"
 #include "directX.h"
-
-#include "Source/DirectX/Direct3D.h"
-#include "Source/Game/GameSystem.h"
 
 #define MAX_LOADSTRING 100
 

@@ -22,6 +22,9 @@
     <Filter Include="Source\Game">
       <UniqueIdentifier>{4e15315c-5a95-48b6-b2ce-1d2cabd0be65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Shape">
+      <UniqueIdentifier>{f27ab51b-0c74-4991-9640-0ae7c6c4887c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -42,6 +45,12 @@
     <ClInclude Include="Source\Game\GameSystem.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Shape\cube.h">
+      <Filter>Source\Game\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\environment.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp">
@@ -52,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\GameSystem.cpp">
       <Filter>Source\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Shape\cube.cpp">
+      <Filter>Source\Game\Shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

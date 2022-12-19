@@ -1,7 +1,5 @@
 #include "framework.h"
-#include "Direct3D.h"
-
-#include <windows.h>
+#include "Source\environment.h"
 
 bool Direct3D::Initialize(HWND hWnd, int width, int height)
 {
@@ -95,6 +93,31 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	{
 		return false;
 	}
+
+	//深度ステンシルバッファを作成
+	D3D11_TEXTURE2D_DESC txDesc;
+	ZeroMemory(&txDesc, sizeof(txDesc));
+	txDesc.Width = (UINT)width;
+	txDesc.Height = (UINT)height;
+	txDesc.MipLevels = 1;
+	txDesc.ArraySize = 1;
+	txDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	txDesc.SampleDesc.Count = 1;
+	txDesc.SampleDesc.Quality = 0;
+	txDesc.Usage = D3D11_USAGE_DEFAULT;
+	txDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	txDesc.CPUAccessFlags = 0;
+	txDesc.MiscFlags = 0;
+
+	m_device->CreateTexture2D(&txDesc, NULL, &pDepthStencilTexture);
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsDesc;
+	ZeroMemory(&dsDesc, sizeof(dsDesc));
+	dsDesc.Format = txDesc.Format;
+	dsDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsDesc.Texture2D.MipSlice = 0;
+
+	m_device->CreateDepthStencilView(pDepthStencilTexture.Get(), &dsDesc, &pDepthStencilView);
 
 	//=====================================================
 	// デバイスコンテキストに描画に関する設定を行っておく

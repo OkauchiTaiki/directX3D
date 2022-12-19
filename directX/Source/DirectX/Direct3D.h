@@ -12,6 +12,12 @@
 // DirectXMath(数学ライブラリ)を使用できるようにする
 #include <DirectXMath.h>
 
+//DirectXのネームスペース
+using namespace DirectX;
+
+//リリース
+#define SAFE_RELEASE(p) {if(p){(p)->Release();(p)=NULL;}}
+
 // ComPtrを使用できるようにする
 #include <wrl/client.h>
 using Microsoft::WRL::ComPtr;
@@ -33,6 +39,9 @@ public:
 	ComPtr<IDXGISwapChain>		m_swapChain;
 	// バックバッファーのRTビュー
 	ComPtr<ID3D11RenderTargetView> m_backBufferView;
+	//深度ステンシルバッファ
+	ComPtr<ID3D11Texture2D>        pDepthStencilTexture;
+	ComPtr<ID3D11DepthStencilView> pDepthStencilView;
 
 	//--------------------------------------------
 	// Direct3Dを初期化し、使用できるようにする関数
