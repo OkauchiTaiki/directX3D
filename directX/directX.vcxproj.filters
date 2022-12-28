@@ -48,7 +48,7 @@
     <ClInclude Include="Source\Game\GameSystem.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Shape\cube.h">
+    <ClInclude Include="Source\Game\Shape\Cube.h">
       <Filter>Source\Game\Shape</Filter>
     </ClInclude>
     <ClInclude Include="Source\environment.h">
@@ -56,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="Source\FrameRateManager\frameRateManager.h">
       <Filter>Source\FrameRateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Shape\Shape.h">
+      <Filter>Source\Game\Shape</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +71,14 @@
     <ClCompile Include="Source\Game\GameSystem.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Shape\cube.cpp">
+    <ClCompile Include="Source\Game\Shape\Cube.cpp">
       <Filter>Source\Game\Shape</Filter>
     </ClCompile>
     <ClCompile Include="Source\FrameRateManager\frameRateManager.cpp">
       <Filter>Source\FrameRateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Shape\Shape.cpp">
+      <Filter>Source\Game\Shape</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

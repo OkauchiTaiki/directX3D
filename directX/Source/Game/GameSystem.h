@@ -34,8 +34,10 @@ private:
 	FrameRateManager frameRateManager = {};
 
 	//ゲーム内容のメンバー変数
-	float rotation = 0.0f;
 	Cube* cube = nullptr;
+
+	void initializeShapes();
+	void terminateShapes();
 
 public:
 	// インスタンス作成

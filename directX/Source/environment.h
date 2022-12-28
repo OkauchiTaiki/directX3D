@@ -10,7 +10,8 @@
 #include "DirectX\Direct3D.h"
 
 //ゲーム内で使うクラスのヘッダー
-#include "Game\Shape\cube.h"
+#include "Game\Shape\Shape.h"
+#include "Game\Shape\Cube.h"
 
 //ゲーム本体のヘッダー
 #include "FrameRateManager\frameRateManager.h"
