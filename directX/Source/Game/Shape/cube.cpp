@@ -86,13 +86,13 @@ bool Cube::initializeCommon()
 	//定数バッファに値を入れる  
 	XMMATRIX worldMatrix = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
 
-	XMVECTOR eye = XMVectorSet(0.0f, 0.0f, 5.0f, 0.0f);
+	XMVECTOR eye = XMVectorSet(0.0f, 1.0f, 5.0f, 0.0f);
 	XMVECTOR focus = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMMATRIX viewMatrix = XMMatrixLookAtLH(eye, focus, up);
 
 	float    fov = DirectX::XMConvertToRadians(60.0f);
-	float    aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+	float    aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 	float    nearZ = 0.1f;
 	float    farZ = 100.0f;
 	DirectX::XMMATRIX projMatrix = DirectX::XMMatrixPerspectiveFovLH(fov, aspect, nearZ, farZ);
@@ -146,6 +146,7 @@ void Cube::render()
 	D3D.m_deviceContext->VSSetConstantBuffers(0, 1, &pConstantBuffer);
 	//頂点バッファをコンテキストに設定
 	D3D.m_deviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &vertexStrides, &vertexOffsets);
+	D3D.m_deviceContext->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
 	//プリミティブ(ポリゴンの形状)をコンテキストに設定
 	D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -213,6 +214,30 @@ void Cube::changeColor(XMFLOAT4 color)
 	}
 }
 
+//回転させる
+void Cube::rotateLocalAxisX(float rotationAngle)
+{
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationX(rotationAngle));
+	rotation = XMQuaternionRotationMatrix(rotationMatrix);
+}
+
+void Cube::rotateLocalAxisY(float rotationAngle)
+{
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationY(rotationAngle));
+	rotation = XMQuaternionRotationMatrix(rotationMatrix);
+}
+
+void Cube::rotateLocalAxisZ(float rotationAngle)
+{
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationZ(rotationAngle));
+	rotation = XMQuaternionRotationMatrix(rotationMatrix);
+}
+
+void Cube::rotateQuaternion(XMFLOAT3 axis, float rotationAngle)
+{
+	rotation = XMQuaternionRotationAxis(XMVectorSet(axis.x, axis.y, axis.z, 0.0f), rotationAngle);
+}
+
 //頂点データへの各種情報の設定
 void Cube::setVertexPosition()
 {
@@ -227,7 +252,7 @@ void Cube::setVertexPosition()
 	    { (+size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z },
 	    { (-size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z }
 	};
-
+	
 	//回転を適用した座標を頂点データに入れる
 	XMMATRIX rotationMatrix = XMMatrixRotationQuaternion(rotation);
 	for (int i = 0; i < vertexNum; i++)

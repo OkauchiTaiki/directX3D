@@ -83,6 +83,12 @@ public:
 	//色を変える
 	void changeColor(XMFLOAT4 color);
 
+	//回転させる
+	void rotateLocalAxisX(float rotationAngle);
+	void rotateLocalAxisY(float rotationAngle);
+	void rotateLocalAxisZ(float rotationAngle);
+	void rotateQuaternion(XMFLOAT3 axis, float rotationAngle);
+
 private:
 	//頂点データへの各種情報の設定
 	virtual void setVertexPosition();

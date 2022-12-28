@@ -14,6 +14,9 @@ public:
 	// このゲーム世界の時間を進める(処理を実行する)
 	void execute();
 
+	//終了処理
+	void terminate();
+
 	// その他、ゲーム用のデータなどをココに書く
 
 //=========================================
@@ -26,7 +29,14 @@ private:
 	static inline GameSystem* s_instance;
 	// コンストラクタはprivateにする
 	GameSystem() {}
+
+	//フレームレートを固定にするためのクラス
+	FrameRateManager frameRateManager = {};
+
+	//ゲーム内容のメンバー変数
 	float rotation = 0.0f;
+	Cube* cube = nullptr;
+
 public:
 	// インスタンス作成
 	static void createInstance()

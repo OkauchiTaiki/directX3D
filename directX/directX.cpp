@@ -75,6 +75,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         GAMESYS.execute();
     }
 
+    GAMESYS.terminate();
+
     // Direct3Dインスタンス削除
     Direct3D::DeleteInstance();
 
