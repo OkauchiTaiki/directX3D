@@ -145,19 +145,23 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Direct3D.h" />
+    <ClInclude Include="Source\DirectX\XMFloatOperator.h" />
     <ClInclude Include="Source\environment.h" />
     <ClInclude Include="Source\FrameRateManager\frameRateManager.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
     <ClInclude Include="Source\Game\Shape\Cube.h" />
+    <ClInclude Include="Source\Game\Shape\RectAngle.h" />
     <ClInclude Include="Source\Game\Shape\Shape.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp" />
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
+    <ClCompile Include="Source\DirectX\XMFloatOperator.cpp" />
     <ClCompile Include="Source\FrameRateManager\frameRateManager.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
     <ClCompile Include="Source\Game\Shape\Cube.cpp" />
+    <ClCompile Include="Source\Game\Shape\RectAngle.cpp" />
     <ClCompile Include="Source\Game\Shape\Shape.cpp" />
   </ItemGroup>
   <ItemGroup>

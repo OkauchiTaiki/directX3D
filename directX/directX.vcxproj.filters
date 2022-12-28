@@ -60,6 +60,12 @@
     <ClInclude Include="Source\Game\Shape\Shape.h">
       <Filter>Source\Game\Shape</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Shape\RectAngle.h">
+      <Filter>Source\Game\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DirectX\XMFloatOperator.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp">
@@ -79,6 +85,12 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Shape\Shape.cpp">
       <Filter>Source\Game\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Shape\RectAngle.cpp">
+      <Filter>Source\Game\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\XMFloatOperator.cpp">
+      <Filter>Source\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

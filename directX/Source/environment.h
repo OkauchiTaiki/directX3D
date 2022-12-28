@@ -8,9 +8,11 @@
 #define SCREEN_HEIGHT   720
 
 #include "DirectX\Direct3D.h"
+#include "DirectX\XMFloatOperator.h"
 
 //ゲーム内で使うクラスのヘッダー
 #include "Game\Shape\Shape.h"
+#include "Game\Shape\RectAngle.h"
 #include "Game\Shape\Cube.h"
 
 //ゲーム本体のヘッダー

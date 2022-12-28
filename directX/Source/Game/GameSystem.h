@@ -33,7 +33,10 @@ private:
 	//フレームレートを固定にするためのクラス
 	FrameRateManager frameRateManager = {};
 
+	//------------------------------------
 	//ゲーム内容のメンバー変数
+	//------------------------------------
+	RectAngle* rectAngle= nullptr;
 	Cube* cube = nullptr;
 
 	void initializeShapes();

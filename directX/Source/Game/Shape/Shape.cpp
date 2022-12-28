@@ -64,8 +64,8 @@ bool Shape::initializeCommon()
 	//定数バッファに値を入れる  
 	XMMATRIX worldMatrix = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
 
-	XMVECTOR eye = XMVectorSet(0.0f, 1.0f, 5.0f, 0.0f);
-	XMVECTOR focus = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
+	XMVECTOR eye = XMVectorSet(0.0f, 5.0f, 6.0f, 0.0f);
+	XMVECTOR focus = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMMATRIX viewMatrix = XMMatrixLookAtLH(eye, focus, up);
 
@@ -222,5 +222,6 @@ void Shape::setVertexPosition()
 	for (int i = 0; i < vertex.size(); i++)
 	{
 		XMStoreFloat3(&vertex[i].pos, XMVector4Transform(XMLoadFloat3(&vertex[i].pos), rotationMatrix));
+		vertex[i].pos = vertex[i].pos + position;
 	}
 }
