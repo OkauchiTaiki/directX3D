@@ -2,6 +2,7 @@
 #include "Source\environment.h"
 
 ID3D11Buffer* Cube::pIndexBuffer = NULL;
+ID3D11Buffer* Cube::pLineIndexBuffer = NULL;
 ID3D11Buffer* Cube::pConstantBuffer = NULL;
 ConstantBuffer Cube::constantBuffer = {};
 UINT Cube::vertexStrides = sizeof(Vertex);
@@ -25,6 +26,12 @@ const WORD Cube::indexList[36] = {
 
 		6,4,5,
 		7,4,6,
+};
+
+const WORD Cube::lineIndexList[24] = {
+	0,1,1,2,2,3,3,0,
+	4,5,5,6,6,7,7,4,
+	0,4,1,5,2,6,3,7,
 };
 
 Cube::Cube(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : position(_position), size(_size)
@@ -115,12 +122,19 @@ bool Cube::initializeCommon()
     hr = D3D.m_device->CreateBuffer(&ibDesc, &ibData, &pIndexBuffer);
 	if (FAILED(hr))   return false;
 
+	//ライン用のインデックスバッファの作成
+	ibDesc.ByteWidth = sizeof(WORD) * 24;
+    ibData = { lineIndexList, 0, 0 };
+	hr = D3D.m_device->CreateBuffer(&ibDesc, &ibData, &pLineIndexBuffer);
+	if (FAILED(hr))   return false;
+
 	return true;
 }
 
 //静的共通データ削除
 void Cube::terminateCommon()
 {
+	SAFE_RELEASE(pIndexBuffer);
 	SAFE_RELEASE(pIndexBuffer);
 	SAFE_RELEASE(pConstantBuffer);
 }
@@ -146,6 +160,7 @@ void Cube::render()
 	D3D.m_deviceContext->VSSetConstantBuffers(0, 1, &pConstantBuffer);
 	//頂点バッファをコンテキストに設定
 	D3D.m_deviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &vertexStrides, &vertexOffsets);
+	//インデックスバッファをコンテキストに設定
 	D3D.m_deviceContext->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
 	//プリミティブ(ポリゴンの形状)をコンテキストに設定
 	D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -156,6 +171,16 @@ void Cube::render()
 
 	//描画コール
 	D3D.m_deviceContext->DrawIndexed(36, 0, 0);
+
+	//ライン用のプリミティブ(ポリゴンの形状)をコンテキストに設定
+	D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	//ライン用のインデックスバッファをコンテキストに設定
+	D3D.m_deviceContext->IASetIndexBuffer(pLineIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+	//ライン用のシェーダーをコンテキストに設定
+	D3D.m_deviceContext->VSSetShader(D3D.m_lineVS.Get(), 0, 0);
+	D3D.m_deviceContext->PSSetShader(D3D.m_linePS.Get(), 0, 0);
+	//ライン用の描画コール
+	D3D.m_deviceContext->DrawIndexed(24, 0, 0);
 }
 
 //実行状態の設定

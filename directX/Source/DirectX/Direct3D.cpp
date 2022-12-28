@@ -145,7 +145,6 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	{
 		return false;
 	}
-
 	// 頂点シェーダー作成
 	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, &m_spriteVS)))
 	{
@@ -153,6 +152,28 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	}
 	// ピクセルシェーダー作成
 	if (FAILED(m_device->CreatePixelShader(compiledPS->GetBufferPointer(), compiledPS->GetBufferSize(), nullptr, &m_spritePS)))
+	{
+		return false;
+	}
+
+	// ライン用のシェーダー
+	// 頂点シェーダーを読み込み＆コンパイル
+	if (FAILED(D3DCompileFromFile(L"Shader/LineShader.hlsl", nullptr, nullptr, "VS", "vs_5_0", 0, 0, &compiledVS, nullptr)))
+	{
+		return false;
+	}
+	// ピクセルシェーダーを読み込み＆コンパイル
+	if (FAILED(D3DCompileFromFile(L"Shader/LineShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", 0, 0, &compiledPS, nullptr)))
+	{
+		return false;
+	}
+	// 頂点シェーダー作成
+	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, &m_lineVS)))
+	{
+		return false;
+	}
+	// ピクセルシェーダー作成
+	if (FAILED(m_device->CreatePixelShader(compiledPS->GetBufferPointer(), compiledPS->GetBufferSize(), nullptr, &m_linePS)))
 	{
 		return false;
 	}

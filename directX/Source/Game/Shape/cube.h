@@ -42,6 +42,8 @@ private:
 	//静的共通データ
 	static ID3D11Buffer* pIndexBuffer;
 	static const WORD indexList[36];
+	static ID3D11Buffer* pLineIndexBuffer;
+	static const WORD lineIndexList[24];
 	static ID3D11Buffer* pConstantBuffer;
 	static ConstantBuffer constantBuffer;
 	static UINT	vertexStrides;

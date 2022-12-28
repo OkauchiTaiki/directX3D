@@ -54,7 +54,9 @@ public:
 	// 2D描画用のシェーダー
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;	// 頂点シェーダー
 	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;	// ピクセルシェーダー
-	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;// 入力レイアウト
+	ComPtr<ID3D11VertexShader>	m_lineVS = nullptr;	    // ライン用頂点シェーダー
+	ComPtr<ID3D11PixelShader>	m_linePS = nullptr;	    // ライン用ピクセルシェーダー
+	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;    // 入力レイアウト
 
 	//=========================================
 	// 今回このクラスは、どこからでもアクセスできるように
