@@ -1,12 +1,12 @@
 #include "framework.h"
 #include "Source\environment.h"
 
-ID3D11Buffer* Shape::pConstantBuffer = NULL;
-ConstantBuffer Shape::constantBuffer = {};
-UINT Shape::vertexStrides = sizeof(Vertex);
-UINT Shape::vertexOffsets = 0;
+ID3D11Buffer* Object::pConstantBuffer = NULL;
+ConstantBuffer Object::constantBuffer = {};
+UINT Object::vertexStrides = sizeof(Vertex);
+UINT Object::vertexOffsets = 0;
 
-Shape::Shape(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color, int vertexNum) : position(_position), size(_size)
+Object::Object(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color, int vertexNum) : position(_position), size(_size)
 {
 	vertex.resize(vertexNum);
 
@@ -39,13 +39,13 @@ Shape::Shape(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color, int vertexNum) 
 	canRender = true;
 }
 
-Shape::~Shape()
+Object::~Object()
 {
 	SAFE_RELEASE(pVertexBuffer);
 }
 
 //静的共通データ初期化
-bool Shape::initializeCommon()
+bool Object::initializeCommon()
 {
 	HRESULT hr;
 
@@ -62,44 +62,35 @@ bool Shape::initializeCommon()
 	if (FAILED(hr))   return false;
 
 	//定数バッファに値を入れる  
-	XMMATRIX worldMatrix = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
-
-	XMVECTOR eye = XMVectorSet(0.0f, 5.0f, -5.0f, 0.0f);
-	XMVECTOR focus = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	XMMATRIX viewMatrix = XMMatrixLookAtLH(eye, focus, up);
-
-	float    fov = DirectX::XMConvertToRadians(60.0f);
-	float    aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
-	float    nearZ = 0.1f;
-	float    farZ = 100.0f;
-	DirectX::XMMATRIX projMatrix = DirectX::XMMatrixPerspectiveFovLH(fov, aspect, nearZ, farZ);
-
-	XMVECTOR light = XMVector3Normalize(XMVectorSet(-0.5f, -1.0f, 0.5f, 0.0f));
-
-	XMStoreFloat4x4(&constantBuffer.world, XMMatrixTranspose(worldMatrix));
-	XMStoreFloat4x4(&constantBuffer.view, XMMatrixTranspose(viewMatrix));
-	XMStoreFloat4x4(&constantBuffer.projection, XMMatrixTranspose(projMatrix));
-	XMStoreFloat4(&constantBuffer.light, light);
-	D3D.m_deviceContext->UpdateSubresource(pConstantBuffer, 0, NULL, &constantBuffer, 0, 0);
+	updateCommon();
 
 	return true;
 }
 
+//静的共通データのアップデート
+void Object::updateCommon()
+{
+	XMStoreFloat4x4(&constantBuffer.world, XMMatrixTranspose(Camera::getWorldMatrix()));
+	XMStoreFloat4x4(&constantBuffer.view, XMMatrixTranspose(Camera::getViewMatrix()));
+	XMStoreFloat4x4(&constantBuffer.projection, XMMatrixTranspose(Camera::getProjectionMatrix()));
+	XMStoreFloat4(&constantBuffer.light, DirectionalLight::getDirection());
+	D3D.m_deviceContext->UpdateSubresource(pConstantBuffer, 0, NULL, &constantBuffer, 0, 0);
+}
+
 //静的共通データ削除
-void Shape::terminateCommon()
+void Object::terminateCommon()
 {
 	SAFE_RELEASE(pConstantBuffer);
 }
 
 //処理
-void Shape::execute()
+void Object::execute()
 {
 
 }
 
 //描画
-void Shape::render()
+void Object::render()
 {
 	//頂点座標の設定
 	setVertexPosition();
@@ -119,72 +110,62 @@ void Shape::render()
 	D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//シェーダーをコンテキストに設定
-	D3D.m_deviceContext->VSSetShader(D3D.m_spriteVS.Get(), 0, 0);
+	D3D.m_deviceContext->VSSetShader(D3D.m_lightVS.Get(), 0, 0);
 	D3D.m_deviceContext->PSSetShader(D3D.m_spritePS.Get(), 0, 0);
 
 	//描画コール
-	D3D.m_deviceContext->DrawIndexed(36, 0, 0);
-
-	//ラインの描画
-	//ライン用のプリミティブ(ポリゴンの形状)をコンテキストに設定
-	D3D.m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
-	//ライン用のインデックスバッファをコンテキストに設定
-	D3D.m_deviceContext->IASetIndexBuffer(getLineIndexBuffer(), DXGI_FORMAT_R16_UINT, 0);
-	//ライン用のシェーダーをコンテキストに設定
-	D3D.m_deviceContext->PSSetShader(D3D.m_linePS.Get(), 0, 0);
-	//ライン用の描画コール
-	D3D.m_deviceContext->DrawIndexed(24, 0, 0);
+	D3D.m_deviceContext->DrawIndexed(getIndexNum(), 0, 0);
 }
 
 //実行状態の設定
-void Shape::enableExecuting()
+void Object::enableExecuting()
 {
 	canExecute = true;
 }
 
-void Shape::disableExecuting()
+void Object::disableExecuting()
 {
 	canExecute = false;
 }
 
 //描画状態の設定
-void Shape::enableRendering()
+void Object::enableRendering()
 {
 	canRender = true;
 }
 
-void Shape::disableRendering()
+void Object::disableRendering()
 {
 	canRender = false;
 }
 
 //描画状態と実行状態両方の設定
-void Shape::enableAll()
+void Object::enableAll()
 {
 	canExecute = true;
 	canRender = true;
 }
 
-void Shape::disableAll()
+void Object::disableAll()
 {
 	canExecute = false;
 	canRender = false;
 }
 
 //実行状態の取得
-bool Shape::isPossibleExecuting() const
+bool Object::isPossibleExecuting() const
 {
 	return canExecute;
 }
 
 //描画状態の取得
-bool Shape::isPossibleRendering() const
+bool Object::isPossibleRendering() const
 {
 	return canRender;
 }
 
 //色を変える
-void Shape::changeColor(XMFLOAT4 color)
+void Object::changeColor(XMFLOAT4 color)
 {
 	for (int i = 0; i < vertex.size(); i++)
 	{
@@ -193,31 +174,31 @@ void Shape::changeColor(XMFLOAT4 color)
 }
 
 //回転させる
-void Shape::rotateLocalAxisX(float rotationAngle)
+void Object::rotateLocalAxisX(float rotationAngle)
 {
 	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationX(rotationAngle));
 	rotation = XMQuaternionRotationMatrix(rotationMatrix);
 }
 
-void Shape::rotateLocalAxisY(float rotationAngle)
+void Object::rotateLocalAxisY(float rotationAngle)
 {
 	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationY(rotationAngle));
 	rotation = XMQuaternionRotationMatrix(rotationMatrix);
 }
 
-void Shape::rotateLocalAxisZ(float rotationAngle)
+void Object::rotateLocalAxisZ(float rotationAngle)
 {
 	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationZ(rotationAngle));
 	rotation = XMQuaternionRotationMatrix(rotationMatrix);
 }
 
-void Shape::rotateQuaternion(XMFLOAT3 axis, float rotationAngle)
+void Object::rotateQuaternion(XMFLOAT3 axis, float rotationAngle)
 {
 	rotation = XMQuaternionRotationAxis(XMVectorSet(axis.x, axis.y, axis.z, 0.0f), rotationAngle);
 }
 
 //頂点データへの各種情報の設定
-void Shape::setVertexPosition()
+void Object::setVertexPosition()
 {
 	//回転を適用した座標を頂点データに入れる
 	XMMATRIX rotationMatrix = XMMatrixRotationQuaternion(rotation);

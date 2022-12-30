@@ -25,20 +25,35 @@ cbuffer ConstantBuffer
 pixel VS(vertex In)
 {
     pixel Out;
-    float3 nor;
-    float  lightPower;
 
     Out.pos = mul(In.pos, World);
     Out.pos = mul(Out.pos, View);
     Out.pos = mul(Out.pos, Projection);
+    Out.col = In.col;
 
+    return Out;
+}
+
+//========================================
+// 光源込みの頂点シェーダー
+//========================================
+pixel LVS(vertex In)
+{
+    pixel Out;
+
+    Out.pos = mul(In.pos, World);
+    Out.pos = mul(Out.pos, View);
+    Out.pos = mul(Out.pos, Projection);
+    
+    float3 nor;
     nor = -1.0f * mul(In.nor, World).xyz;
     nor = normalize(nor);
 
+    float  lightPower;
     lightPower = saturate(dot(nor, (float3)Light));
     lightPower = lightPower * 0.5f + 0.5f;
-
     Out.col = lightPower * In.col;
+
     return Out;
 }
 
@@ -49,12 +64,4 @@ float4 PS(pixel In) : SV_Target0
 {
     //return float4(0, 1, 0, 1);
     return In.col;
-}
-
-//========================================
-// ライン用のピクセルシェーダー
-//========================================
-float4 LPS(pixel In) : SV_Target0
-{
-    return float4(0, 0, 0, 1);
 }

@@ -22,11 +22,23 @@
     <Filter Include="Source\Game">
       <UniqueIdentifier>{4e15315c-5a95-48b6-b2ce-1d2cabd0be65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Game\Shape">
-      <UniqueIdentifier>{f27ab51b-0c74-4991-9640-0ae7c6c4887c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\FrameRateManager">
       <UniqueIdentifier>{80eda221-73cc-455a-9591-17d0ce9cbc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\EnvironmentObjects">
+      <UniqueIdentifier>{ca95d957-d989-4065-81a9-fab0c620b1f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\OriginalMath">
+      <UniqueIdentifier>{1089978b-b79b-43d9-97fd-28e7e8215312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Camera">
+      <UniqueIdentifier>{2117db3a-6044-43bc-9536-e33372ffcf64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Light">
+      <UniqueIdentifier>{1d35675c-0654-4b49-9c63-4ef4917f2ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game\Object">
+      <UniqueIdentifier>{f27ab51b-0c74-4991-9640-0ae7c6c4887c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,8 +60,8 @@
     <ClInclude Include="Source\Game\GameSystem.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Shape\Cube.h">
-      <Filter>Source\Game\Shape</Filter>
+    <ClInclude Include="Source\Game\Object\Cube.h">
+      <Filter>Source\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\environment.h">
       <Filter>Source</Filter>
@@ -57,14 +69,29 @@
     <ClInclude Include="Source\FrameRateManager\frameRateManager.h">
       <Filter>Source\FrameRateManager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Shape\Shape.h">
-      <Filter>Source\Game\Shape</Filter>
+    <ClInclude Include="Source\Game\Object\Object.h">
+      <Filter>Source\Game\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Shape\RectAngle.h">
-      <Filter>Source\Game\Shape</Filter>
+    <ClInclude Include="Source\Game\Object\RectAngle.h">
+      <Filter>Source\Game\Object</Filter>
     </ClInclude>
     <ClInclude Include="Source\DirectX\XMFloatOperator.h">
       <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Object\Line.h">
+      <Filter>Source\Game\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\EnvironmentObjects\GroundLines.h">
+      <Filter>Source\Game\EnvironmentObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OriginalMath\OriginalMath.h">
+      <Filter>Source\OriginalMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Camera\Camera.h">
+      <Filter>Source\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Light\DirectionalLight.h">
+      <Filter>Source\Game\Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,20 +104,35 @@
     <ClCompile Include="Source\Game\GameSystem.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Shape\Cube.cpp">
-      <Filter>Source\Game\Shape</Filter>
+    <ClCompile Include="Source\Game\Object\Cube.cpp">
+      <Filter>Source\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Source\FrameRateManager\frameRateManager.cpp">
       <Filter>Source\FrameRateManager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Shape\Shape.cpp">
-      <Filter>Source\Game\Shape</Filter>
+    <ClCompile Include="Source\Game\Object\Object.cpp">
+      <Filter>Source\Game\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Shape\RectAngle.cpp">
-      <Filter>Source\Game\Shape</Filter>
+    <ClCompile Include="Source\Game\Object\RectAngle.cpp">
+      <Filter>Source\Game\Object</Filter>
     </ClCompile>
     <ClCompile Include="Source\DirectX\XMFloatOperator.cpp">
       <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Object\Line.cpp">
+      <Filter>Source\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\EnvironmentObjects\GroundLines.cpp">
+      <Filter>Source\Game\EnvironmentObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\OriginalMath\OriginalMath.cpp">
+      <Filter>Source\OriginalMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Camera\Camera.cpp">
+      <Filter>Source\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Light\DirectionalLight.cpp">
+      <Filter>Source\Game\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

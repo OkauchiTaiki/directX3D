@@ -156,14 +156,14 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 		return false;
 	}
 
-	// ライン用のシェーダー
-	// ピクセルシェーダーを読み込み＆コンパイル
-	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "LPS", "ps_5_0", 0, 0, &compiledPS, nullptr)))
+	// 光源込み
+	// 頂点シェーダーを読み込み＆コンパイル
+	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "LVS", "vs_5_0", 0, 0, &compiledVS, nullptr)))
 	{
 		return false;
 	}
-	// ピクセルシェーダー作成
-	if (FAILED(m_device->CreatePixelShader(compiledPS->GetBufferPointer(), compiledPS->GetBufferSize(), nullptr, &m_linePS)))
+	// 頂点シェーダー作成
+	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, &m_lightVS)))
 	{
 		return false;
 	}

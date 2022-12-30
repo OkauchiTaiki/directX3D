@@ -15,7 +15,7 @@ struct ConstantBuffer {
 	XMFLOAT4   light;
 };
 
-class Shape
+class Object
 {
 public:
 	//座標
@@ -28,7 +28,7 @@ public:
 	//頂点データ
 	std::vector<Vertex> vertex;
 
-private:
+protected:
 	//回転（クォータニオン）
 	XMVECTOR rotation;
 	//実行状態の管理(execute関数を実行する)
@@ -46,11 +46,14 @@ private:
 	static UINT	vertexOffsets;
 
 public:
-	Shape(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color, int vertexNum);
-	virtual ~Shape();
+	Object(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color, int vertexNum);
+	virtual ~Object();
 
 	//静的共通データ初期化
 	static bool initializeCommon();
+
+	//静的共通データのアップデート
+	static void updateCommon();
 
 	//静的共通データ削除
 	static void terminateCommon();
@@ -59,7 +62,7 @@ public:
 	void execute();
 
 	//描画
-	void render();
+	virtual void render();
 
 	//実行状態の設定
 	void enableExecuting();
@@ -93,5 +96,5 @@ protected:
 
 private:
 	virtual ID3D11Buffer* getIndexBuffer() = 0;
-	virtual ID3D11Buffer* getLineIndexBuffer() = 0;
+	virtual int getIndexNum() = 0;
 };

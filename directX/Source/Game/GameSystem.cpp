@@ -7,6 +7,8 @@ void GameSystem::initialize()
 	initializeShapes();
 	rectAngle = new RectAngle(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(6.0f, 1.0f, 6.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 	cube = new Cube(XMFLOAT3(0.0f, 2.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
+	line1 = new Line(XMFLOAT3(0.0f, 0.0f, 0.0f), 100.0f, XMFLOAT4(0.6f, 0.6f, 0.6f, 0.6f));
+	groundLines = new GroundLines();
 }
 
 // このゲームの時間を進める(処理を実行する)
@@ -16,7 +18,7 @@ void GameSystem::execute()
 	frameRateManager.setStartCount();
 
 	//画面と深度ステンシルバッファをリセット
-	float clearColor[4] = { 0.3f, 0.3f, 0.3f, 1.0f };
+	float clearColor[4] = { 0.53f, 0.42f, 0.38f, 1.0f };
 	D3D.m_deviceContext->ClearRenderTargetView(D3D.m_backBufferView.Get(), clearColor);
 	D3D.m_deviceContext->ClearDepthStencilView(D3D.pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
@@ -26,8 +28,10 @@ void GameSystem::execute()
 	//-------------------------------------------
 	{
 		cube->rotateLocalAxisY(0.01f);
+		Object::updateCommon();
 		rectAngle->render();
 		cube->render();
+		//groundLines->render();
 	}
 
 
@@ -43,18 +47,23 @@ void GameSystem::terminate()
 	terminateShapes();
 	delete rectAngle;
 	delete cube;
+	delete line1;
+	delete line2;
+	delete groundLines;
 }
 
 void GameSystem::initializeShapes()
 {
-	Shape::initializeCommon();
+	Object::initializeCommon();
 	RectAngle::initializeCommon();
 	Cube::initializeCommon();
+	Line::initializeCommon();
 }
 
 void GameSystem::terminateShapes()
 {
-	Shape::terminateCommon();
+	Object::terminateCommon();
 	RectAngle::terminateCommon();
 	Cube::terminateCommon();
+	Line::terminateCommon();
 }

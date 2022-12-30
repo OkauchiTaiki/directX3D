@@ -2,18 +2,13 @@
 #include "Source\environment.h"
 
 ID3D11Buffer* RectAngle::pIndexBuffer = NULL;
-ID3D11Buffer* RectAngle::pLineIndexBuffer = NULL;
 
-const WORD RectAngle::indexList[indexListNum] = {
+const WORD RectAngle::indexList[indexListSize] = {
 		0,1,3,
 		3,1,2,
 };
 
-const WORD RectAngle::lineIndexList[lineIndexListNum] = {
-	0,1,1,2,2,3,3,0
-};
-
-RectAngle::RectAngle(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : Shape(_position, _size, color, vertexNum)
+RectAngle::RectAngle(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : Object(_position, _size, color, vertexNum)
 {
 	
 }
@@ -30,7 +25,7 @@ bool RectAngle::initializeCommon()
 
 	//インデックスバッファの作成
 	D3D11_BUFFER_DESC ibDesc = {};
-	ibDesc.ByteWidth = sizeof(WORD) * indexListNum;
+	ibDesc.ByteWidth = sizeof(WORD) * indexListSize;
 	ibDesc.Usage = D3D11_USAGE_DEFAULT;
 	ibDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	ibDesc.CPUAccessFlags = 0;
@@ -41,12 +36,6 @@ bool RectAngle::initializeCommon()
 	hr = D3D.m_device->CreateBuffer(&ibDesc, &ibData, &pIndexBuffer);
 	if (FAILED(hr))   return false;
 
-	//ライン用のインデックスバッファの作成
-	ibDesc.ByteWidth = sizeof(WORD) * lineIndexListNum;
-	ibData = { lineIndexList, 0, 0 };
-	hr = D3D.m_device->CreateBuffer(&ibDesc, &ibData, &pLineIndexBuffer);
-	if (FAILED(hr))   return false;
-
 	return true;
 }
 
@@ -54,7 +43,6 @@ bool RectAngle::initializeCommon()
 void RectAngle::terminateCommon()
 {
 	SAFE_RELEASE(pIndexBuffer);
-	SAFE_RELEASE(pLineIndexBuffer);
 }
 
 //頂点データへの各種情報の設定
@@ -69,7 +57,7 @@ void RectAngle::setVertexPosition()
 	//回転無しのときの法線ベクトル
 	vertex[0].normal = vertex[1].normal = vertex[2].normal = vertex[3].normal = { 0.0f,  1.0f,  0.0f };
 
-	Shape::setVertexPosition();
+	Object::setVertexPosition();
 }
 
 ID3D11Buffer* RectAngle::getIndexBuffer()
@@ -77,7 +65,7 @@ ID3D11Buffer* RectAngle::getIndexBuffer()
 	return pIndexBuffer;
 }
 
-ID3D11Buffer* RectAngle::getLineIndexBuffer()
+int RectAngle::getIndexNum()
 {
-	return pLineIndexBuffer;
+	return indexListSize;
 }

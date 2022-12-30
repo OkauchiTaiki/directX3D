@@ -2,9 +2,8 @@
 #include "Source\environment.h"
 
 ID3D11Buffer* Cube::pIndexBuffer = NULL;
-ID3D11Buffer* Cube::pLineIndexBuffer = NULL;
 
-const WORD Cube::indexList[indexListNum] = {
+const WORD Cube::indexList[indexListSize] = {
 		0,1,3,
 		3,1,2,
 
@@ -24,15 +23,7 @@ const WORD Cube::indexList[indexListNum] = {
 		4,6,5,
 };
 
-const WORD Cube::lineIndexList[lineIndexListNum] = {
-	0,1,1,2,2,3,3,0,
-
-	4,5,5,6,6,7,7,4,
-
-	0,4,1,5,2,6,3,7,
-};
-
-Cube::Cube(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : Shape(_position, _size, color, vertexNum)
+Cube::Cube(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : Object(_position, _size, color, vertexNum)
 {
 
 }
@@ -49,7 +40,7 @@ bool Cube::initializeCommon()
 
 	//インデックスバッファの作成
 	D3D11_BUFFER_DESC ibDesc = {};
-    ibDesc.ByteWidth = sizeof(WORD) * indexListNum;
+    ibDesc.ByteWidth = sizeof(WORD) * indexListSize;
     ibDesc.Usage = D3D11_USAGE_DEFAULT;
     ibDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
     ibDesc.CPUAccessFlags = 0;
@@ -60,12 +51,6 @@ bool Cube::initializeCommon()
     hr = D3D.m_device->CreateBuffer(&ibDesc, &ibData, &pIndexBuffer);
 	if (FAILED(hr))   return false;
 
-	//ライン用のインデックスバッファの作成
-	ibDesc.ByteWidth = sizeof(WORD) * lineIndexListNum;
-    ibData = { lineIndexList, 0, 0 };
-	hr = D3D.m_device->CreateBuffer(&ibDesc, &ibData, &pLineIndexBuffer);
-	if (FAILED(hr))   return false;
-
 	return true;
 }
 
@@ -73,7 +58,6 @@ bool Cube::initializeCommon()
 void Cube::terminateCommon()
 {
 	SAFE_RELEASE(pIndexBuffer);
-	SAFE_RELEASE(pLineIndexBuffer);
 }
 
 //頂点データへの各種情報の設定
@@ -97,7 +81,7 @@ void Cube::setVertexPosition()
 	vertex[16].normal = vertex[17].normal = vertex[18].normal = vertex[19].normal = { -1.0f,  0.0f,  0.0f };
 	vertex[20].normal = vertex[21].normal = vertex[22].normal = vertex[23].normal = {  1.0f,  0.0f,  0.0f };
 	
-	Shape::setVertexPosition();
+	Object::setVertexPosition();
 }
 
 ID3D11Buffer* Cube::getIndexBuffer()
@@ -105,7 +89,7 @@ ID3D11Buffer* Cube::getIndexBuffer()
 	return pIndexBuffer;
 }
 
-ID3D11Buffer* Cube::getLineIndexBuffer()
+int Cube::getIndexNum()
 {
-	return pLineIndexBuffer;
+	return indexListSize;
 }

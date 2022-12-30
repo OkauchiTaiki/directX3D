@@ -148,10 +148,15 @@
     <ClInclude Include="Source\DirectX\XMFloatOperator.h" />
     <ClInclude Include="Source\environment.h" />
     <ClInclude Include="Source\FrameRateManager\frameRateManager.h" />
+    <ClInclude Include="Source\Game\Camera\Camera.h" />
+    <ClInclude Include="Source\Game\EnvironmentObjects\GroundLines.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
-    <ClInclude Include="Source\Game\Shape\Cube.h" />
-    <ClInclude Include="Source\Game\Shape\RectAngle.h" />
-    <ClInclude Include="Source\Game\Shape\Shape.h" />
+    <ClInclude Include="Source\Game\Light\DirectionalLight.h" />
+    <ClInclude Include="Source\Game\Object\Cube.h" />
+    <ClInclude Include="Source\Game\Object\RectAngle.h" />
+    <ClInclude Include="Source\Game\Object\Object.h" />
+    <ClInclude Include="Source\Game\Object\Line.h" />
+    <ClInclude Include="Source\OriginalMath\OriginalMath.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -159,10 +164,15 @@
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
     <ClCompile Include="Source\DirectX\XMFloatOperator.cpp" />
     <ClCompile Include="Source\FrameRateManager\frameRateManager.cpp" />
+    <ClCompile Include="Source\Game\Camera\Camera.cpp" />
+    <ClCompile Include="Source\Game\EnvironmentObjects\GroundLines.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
-    <ClCompile Include="Source\Game\Shape\Cube.cpp" />
-    <ClCompile Include="Source\Game\Shape\RectAngle.cpp" />
-    <ClCompile Include="Source\Game\Shape\Shape.cpp" />
+    <ClCompile Include="Source\Game\Light\DirectionalLight.cpp" />
+    <ClCompile Include="Source\Game\Object\Cube.cpp" />
+    <ClCompile Include="Source\Game\Object\Line.cpp" />
+    <ClCompile Include="Source\Game\Object\RectAngle.cpp" />
+    <ClCompile Include="Source\Game\Object\Object.cpp" />
+    <ClCompile Include="Source\OriginalMath\OriginalMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="directX.rc" />

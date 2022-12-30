@@ -38,6 +38,9 @@ private:
 	//------------------------------------
 	RectAngle* rectAngle= nullptr;
 	Cube* cube = nullptr;
+	Line* line1 = nullptr;
+	Line* line2 = nullptr;
+	GroundLines* groundLines = nullptr;
 
 	void initializeShapes();
 	void terminateShapes();
