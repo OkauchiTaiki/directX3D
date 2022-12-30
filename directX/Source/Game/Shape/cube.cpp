@@ -5,23 +5,23 @@ ID3D11Buffer* Cube::pIndexBuffer = NULL;
 ID3D11Buffer* Cube::pLineIndexBuffer = NULL;
 
 const WORD Cube::indexList[indexListNum] = {
-		3,1,0,
-		2,1,3,
+		0,1,3,
+		3,1,2,
 
-		0,5,4,
-		1,5,0,
+		8,9,11,
+		11,9,10,
 
-		3,4,7,
-		0,4,3,
+		12,13,15,
+		15,13,14,
 
-		1,6,5,
-		2,6,1,
+		16,17,19,
+		19,17,18,
 
-		2,7,6,
-		3,7,2,
+		20,21,23,
+		23,21,22,
 
-		6,4,5,
-		7,4,6,
+		7,6,4,
+		4,6,5,
 };
 
 const WORD Cube::lineIndexList[lineIndexListNum] = {
@@ -34,7 +34,7 @@ const WORD Cube::lineIndexList[lineIndexListNum] = {
 
 Cube::Cube(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : Shape(_position, _size, color, vertexNum)
 {
-	
+
 }
 
 Cube::~Cube()
@@ -79,15 +79,23 @@ void Cube::terminateCommon()
 //頂点データへの各種情報の設定
 void Cube::setVertexPosition()
 {
-	//標準状態での各頂点の座標
-	vertex[0].pos = { (-size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
-	vertex[1].pos = { (+size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
-	vertex[2].pos = { (+size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
-	vertex[3].pos = { (-size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
-	vertex[4].pos = { (-size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
-	vertex[5].pos = { (+size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
-	vertex[6].pos = { (+size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
-	vertex[7].pos = { (-size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
+	//回転無しのときの各頂点の座標
+	vertex[0].pos = vertex[13].pos = vertex[16].pos = { (-size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
+	vertex[1].pos = vertex[12].pos = vertex[21].pos = { (+size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
+	vertex[2].pos = vertex[9].pos  = vertex[20].pos = { (+size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
+	vertex[3].pos = vertex[8].pos  = vertex[17].pos = { (-size.x * 0.5f) * scale.x, (+size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
+	vertex[4].pos = vertex[14].pos = vertex[19].pos = { (-size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
+	vertex[5].pos = vertex[15].pos = vertex[22].pos = { (+size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (+size.z * 0.5f) * scale.z };
+	vertex[6].pos = vertex[10].pos = vertex[23].pos = { (+size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
+	vertex[7].pos = vertex[11].pos = vertex[18].pos = { (-size.x * 0.5f) * scale.x, (-size.y * 0.5f) * scale.y, (-size.z * 0.5f) * scale.z };
+
+	//回転無しのときの法線ベクトル
+	vertex[0].normal = vertex[1].normal = vertex[2].normal = vertex[3].normal =     {  0.0f,  1.0f,  0.0f };
+	vertex[4].normal = vertex[5].normal = vertex[6].normal = vertex[7].normal =     {  0.0f, -1.0f,  0.0f };
+	vertex[8].normal = vertex[9].normal = vertex[10].normal = vertex[11].normal =   {  0.0f,  0.0f, -1.0f };
+	vertex[12].normal = vertex[13].normal = vertex[14].normal = vertex[15].normal = {  0.0f,  0.0f,  1.0f };
+	vertex[16].normal = vertex[17].normal = vertex[18].normal = vertex[19].normal = { -1.0f,  0.0f,  0.0f };
+	vertex[20].normal = vertex[21].normal = vertex[22].normal = vertex[23].normal = {  1.0f,  0.0f,  0.0f };
 	
 	Shape::setVertexPosition();
 }

@@ -5,8 +5,8 @@ ID3D11Buffer* RectAngle::pIndexBuffer = NULL;
 ID3D11Buffer* RectAngle::pLineIndexBuffer = NULL;
 
 const WORD RectAngle::indexList[indexListNum] = {
-		0,3,1,
-		3,2,1,
+		0,1,3,
+		3,1,2,
 };
 
 const WORD RectAngle::lineIndexList[lineIndexListNum] = {
@@ -15,7 +15,7 @@ const WORD RectAngle::lineIndexList[lineIndexListNum] = {
 
 RectAngle::RectAngle(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color) : Shape(_position, _size, color, vertexNum)
 {
-
+	
 }
 
 RectAngle::~RectAngle()
@@ -60,11 +60,14 @@ void RectAngle::terminateCommon()
 //頂点データへの各種情報の設定
 void RectAngle::setVertexPosition()
 {
-	//標準状態での各頂点の座標
-	vertex[0].pos = { (-size.x * 0.5f) * scale.x, 0.0f, (-size.z * 0.5f) * scale.z };
-	vertex[1].pos = { (+size.x * 0.5f) * scale.x, 0.0f, (-size.z * 0.5f) * scale.z };
-	vertex[2].pos = { (+size.x * 0.5f) * scale.x, 0.0f, (+size.z * 0.5f) * scale.z };
-	vertex[3].pos = { (-size.x * 0.5f) * scale.x, 0.0f, (+size.z * 0.5f) * scale.z };
+	//回転無しのときの各頂点の座標
+	vertex[0].pos = { (-size.x * 0.5f) * scale.x, 0.0f, (+size.z * 0.5f) * scale.z };
+	vertex[1].pos = { (+size.x * 0.5f) * scale.x, 0.0f, (+size.z * 0.5f) * scale.z };
+	vertex[2].pos = { (+size.x * 0.5f) * scale.x, 0.0f, (-size.z * 0.5f) * scale.z };
+	vertex[3].pos = { (-size.x * 0.5f) * scale.x, 0.0f, (-size.z * 0.5f) * scale.z };
+
+	//回転無しのときの法線ベクトル
+	vertex[0].normal = vertex[1].normal = vertex[2].normal = vertex[3].normal = { 0.0f,  1.0f,  0.0f };
 
 	Shape::setVertexPosition();
 }

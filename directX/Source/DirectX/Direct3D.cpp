@@ -157,18 +157,8 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	}
 
 	// ライン用のシェーダー
-	// 頂点シェーダーを読み込み＆コンパイル
-	if (FAILED(D3DCompileFromFile(L"Shader/LineShader.hlsl", nullptr, nullptr, "VS", "vs_5_0", 0, 0, &compiledVS, nullptr)))
-	{
-		return false;
-	}
 	// ピクセルシェーダーを読み込み＆コンパイル
-	if (FAILED(D3DCompileFromFile(L"Shader/LineShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", 0, 0, &compiledPS, nullptr)))
-	{
-		return false;
-	}
-	// 頂点シェーダー作成
-	if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, &m_lineVS)))
+	if (FAILED(D3DCompileFromFile(L"Shader/SpriteShader.hlsl", nullptr, nullptr, "LPS", "ps_5_0", 0, 0, &compiledPS, nullptr)))
 	{
 		return false;
 	}
@@ -181,7 +171,8 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	// １頂点の詳細な情報
 	D3D11_INPUT_ELEMENT_DESC layout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,	 0,                            0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,    0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
 	// 頂点インプットレイアウト作成

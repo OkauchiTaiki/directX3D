@@ -4,7 +4,7 @@ class Cube : public Shape
 {
 private:
 	//’¸“_”
-	static const int vertexNum = 8;
+	static const int vertexNum = 24;
 	static const int indexListNum = 36;
 	static const int lineIndexListNum = 24;
 

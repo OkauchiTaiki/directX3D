@@ -4,13 +4,15 @@ struct Vertex
 {
 	XMFLOAT3 pos;	// 座標
 	XMFLOAT4 color;	// 色
+	XMFLOAT3 normal;
 };
 
-//座標変換する定数バッファ用構造体
+//定数バッファ用構造体
 struct ConstantBuffer {
 	XMFLOAT4X4 world;
 	XMFLOAT4X4 view;
 	XMFLOAT4X4 projection;
+	XMFLOAT4   light;
 };
 
 class Shape

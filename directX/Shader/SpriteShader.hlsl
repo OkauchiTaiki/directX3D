@@ -2,6 +2,7 @@ struct vertex
 {
     float4 pos : POSITION0;   // 頂点の座標(射影座標系)
     float4 col : COLOR0;
+    float4 nor : NORMAL0;
 };
 
 struct pixel
@@ -15,6 +16,7 @@ cbuffer ConstantBuffer
     float4x4 World;         //ワールド変換行列
     float4x4 View;          //ビュー変換行列
     float4x4 Projection;    //透視射影変換行列
+    float4   Light;
 }
 
 //========================================
@@ -23,10 +25,20 @@ cbuffer ConstantBuffer
 pixel VS(vertex In)
 {
     pixel Out;
+    float3 nor;
+    float  lightPower;
+
     Out.pos = mul(In.pos, World);
     Out.pos = mul(Out.pos, View);
     Out.pos = mul(Out.pos, Projection);
-    Out.col = In.col;
+
+    nor = -1.0f * mul(In.nor, World).xyz;
+    nor = normalize(nor);
+
+    lightPower = saturate(dot(nor, (float3)Light));
+    lightPower = lightPower * 0.5f + 0.5f;
+
+    Out.col = lightPower * In.col;
     return Out;
 }
 
@@ -37,4 +49,12 @@ float4 PS(pixel In) : SV_Target0
 {
     //return float4(0, 1, 0, 1);
     return In.col;
+}
+
+//========================================
+// ライン用のピクセルシェーダー
+//========================================
+float4 LPS(pixel In) : SV_Target0
+{
+    return float4(0, 0, 0, 1);
 }

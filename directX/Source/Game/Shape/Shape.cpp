@@ -64,7 +64,7 @@ bool Shape::initializeCommon()
 	//定数バッファに値を入れる  
 	XMMATRIX worldMatrix = XMMatrixTranslation(0.0f, 0.0f, 0.0f);
 
-	XMVECTOR eye = XMVectorSet(0.0f, 5.0f, 6.0f, 0.0f);
+	XMVECTOR eye = XMVectorSet(0.0f, 5.0f, -5.0f, 0.0f);
 	XMVECTOR focus = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	XMMATRIX viewMatrix = XMMatrixLookAtLH(eye, focus, up);
@@ -75,9 +75,12 @@ bool Shape::initializeCommon()
 	float    farZ = 100.0f;
 	DirectX::XMMATRIX projMatrix = DirectX::XMMatrixPerspectiveFovLH(fov, aspect, nearZ, farZ);
 
+	XMVECTOR light = XMVector3Normalize(XMVectorSet(-0.5f, -1.0f, 0.5f, 0.0f));
+
 	XMStoreFloat4x4(&constantBuffer.world, XMMatrixTranspose(worldMatrix));
 	XMStoreFloat4x4(&constantBuffer.view, XMMatrixTranspose(viewMatrix));
 	XMStoreFloat4x4(&constantBuffer.projection, XMMatrixTranspose(projMatrix));
+	XMStoreFloat4(&constantBuffer.light, light);
 	D3D.m_deviceContext->UpdateSubresource(pConstantBuffer, 0, NULL, &constantBuffer, 0, 0);
 
 	return true;
@@ -128,7 +131,6 @@ void Shape::render()
 	//ライン用のインデックスバッファをコンテキストに設定
 	D3D.m_deviceContext->IASetIndexBuffer(getLineIndexBuffer(), DXGI_FORMAT_R16_UINT, 0);
 	//ライン用のシェーダーをコンテキストに設定
-	D3D.m_deviceContext->VSSetShader(D3D.m_lineVS.Get(), 0, 0);
 	D3D.m_deviceContext->PSSetShader(D3D.m_linePS.Get(), 0, 0);
 	//ライン用の描画コール
 	D3D.m_deviceContext->DrawIndexed(24, 0, 0);
@@ -223,5 +225,8 @@ void Shape::setVertexPosition()
 	{
 		XMStoreFloat3(&vertex[i].pos, XMVector4Transform(XMLoadFloat3(&vertex[i].pos), rotationMatrix));
 		vertex[i].pos = vertex[i].pos + position;
+
+		//ついでに法線ベクトルにも回転を加える
+		XMStoreFloat3(&vertex[i].normal, XMVector4Transform(XMLoadFloat3(&vertex[i].normal), rotationMatrix));
 	}
 }
