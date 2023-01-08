@@ -1,5 +1,4 @@
 ﻿// directX.cpp : アプリケーションのエントリ ポイントを定義します。
-//
 
 #include "framework.h"
 #include "Source\environment.h"
@@ -45,6 +44,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // ゲームシステム生成
     GameSystem::createInstance();
+
+    //DirectInput初期化
+    DirectInput::initialize(hInstance);
     // ゲームシステム初期設定
     GAMESYS.initialize();
 
@@ -72,10 +74,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         // ゲームの処理を書く
         //============================================
 
+        DirectInput::KeyManager();
         GAMESYS.execute();
     }
 
     GAMESYS.terminate();
+    DirectInput::terminate();
 
     // Direct3Dインスタンス削除
     Direct3D::DeleteInstance();
@@ -173,6 +177,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
+        }
+        break;
+    case WM_MOUSEMOVE:
+        DirectInput::setMousePosition(LOWORD(lParam), HIWORD(lParam));
+        break;
+    case WM_KEYDOWN:				//キーが押された
+        if (wParam == VK_ESCAPE)	//ESCキー
+        {
+            PostQuitMessage(0);		//アプリケーションを終了する
         }
         break;
     case WM_PAINT:

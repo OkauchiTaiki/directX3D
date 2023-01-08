@@ -17,9 +17,10 @@ private:
 	static const float farZ;
 
 public:
-	static XMVECTOR getPosition();
+	static XMFLOAT3 getPosition();
 	static void setPosition(float x, float y, float z);
-	static XMVECTOR getFocus();
+	static void addPosition(float x, float y, float z);
+	static XMFLOAT3 getFocus();
 	static void setFocus(float x, float y, float z);
 
 	static XMMATRIX getWorldMatrix();

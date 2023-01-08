@@ -41,6 +41,7 @@ private:
 	Line* line1 = nullptr;
 	Line* line2 = nullptr;
 	GroundLines* groundLines = nullptr;
+	float cameraAdditionalPositionX = 0.01f;
 
 	void initializeShapes();
 	void terminateShapes();

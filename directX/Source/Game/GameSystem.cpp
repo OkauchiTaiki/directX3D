@@ -28,6 +28,8 @@ void GameSystem::execute()
 	//-------------------------------------------
 	{
 		cube->rotateLocalAxisY(0.01f);
+		if (Keyboard::on(DIK_A))   cube->position.x -= 0.02f;
+		if (Keyboard::on(DIK_D))   cube->position.x += 0.02f;
 		Object::updateCommon();
 		rectAngle->render();
 		cube->render();

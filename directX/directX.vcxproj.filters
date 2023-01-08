@@ -40,6 +40,9 @@
     <Filter Include="Source\Game\Object">
       <UniqueIdentifier>{f27ab51b-0c74-4991-9640-0ae7c6c4887c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Input">
+      <UniqueIdentifier>{970d3351-c689-4f73-b2a9-9c2a85443b71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -93,6 +96,15 @@
     <ClInclude Include="Source\Game\Light\DirectionalLight.h">
       <Filter>Source\Game\Light</Filter>
     </ClInclude>
+    <ClInclude Include="Source\DirectX\DirectInput.h">
+      <Filter>Source\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Keyboard.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Mouse.h">
+      <Filter>Source\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp">
@@ -133,6 +145,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Light\DirectionalLight.cpp">
       <Filter>Source\Game\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DirectX\DirectInput.cpp">
+      <Filter>Source\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Keyboard.cpp">
+      <Filter>Source\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Mouse.cpp">
+      <Filter>Source\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

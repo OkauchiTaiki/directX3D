@@ -35,7 +35,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 		D3D_FEATURE_LEVEL_9_1,	// Direct3D 9.1   ShaderModel 3
 	};
 
-	// デバイスとでデバイスコンテキストを作成
+	// デバイスとデバイスコンテキストを作成
 	D3D_FEATURE_LEVEL futureLevel;
 	if (FAILED(D3D11CreateDevice(
 		nullptr,

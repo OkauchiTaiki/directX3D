@@ -14,9 +14,9 @@ const float Camera::aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 const float Camera::nearZ = 0.1f;
 const float Camera::farZ = 100.0f;
 
-XMVECTOR Camera::getPosition()
+XMFLOAT3 Camera::getPosition()
 {
-	return XMLoadFloat3(&position);
+	return position;
 }
 
 void Camera::setPosition(float x, float y, float z)
@@ -24,9 +24,14 @@ void Camera::setPosition(float x, float y, float z)
 	position = { x, y, z };
 }
 
-XMVECTOR Camera::getFocus()
+void Camera::addPosition(float x, float y, float z)
 {
-	return XMLoadFloat3(&focus);
+	position = position + XMFLOAT3(x, y, z);
+}
+
+XMFLOAT3 Camera::getFocus()
+{
+	return focus;
 }
 
 void Camera::setFocus(float x, float y, float z)
