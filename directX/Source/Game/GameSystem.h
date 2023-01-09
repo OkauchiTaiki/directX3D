@@ -37,7 +37,7 @@ private:
 	//ゲーム内容のメンバー変数
 	//------------------------------------
 	RectAngle* rectAngle= nullptr;
-	Cube* cube = nullptr;
+	Player* player = nullptr;
 	Line* line1 = nullptr;
 	Line* line2 = nullptr;
 	GroundLines* groundLines = nullptr;

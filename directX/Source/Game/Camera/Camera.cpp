@@ -14,6 +14,11 @@ const float Camera::aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 const float Camera::nearZ = 0.1f;
 const float Camera::farZ = 100.0f;
 
+const XMFLOAT3* Camera::trackingPosition = nullptr;
+const XMVECTOR* Camera::trackingRotation = nullptr;
+const XMFLOAT3 Camera::localPosition = { 0.0f, 3.0f, -5.0f };
+const XMFLOAT3 Camera::localFocus = { 0.0f, 2.0f, 0.0f };
+
 XMFLOAT3 Camera::getPosition()
 {
 	return position;
@@ -37,6 +42,36 @@ XMFLOAT3 Camera::getFocus()
 void Camera::setFocus(float x, float y, float z)
 {
 	focus = { x, y, z };
+}
+
+void Camera::addFocus(float x, float y, float z)
+{
+	focus = focus + XMFLOAT3(x, y, z);
+}
+
+void Camera::setTracking(const XMFLOAT3* position, const XMVECTOR* rotation)
+{
+	trackingPosition = position;
+	trackingRotation = rotation;
+}
+
+void Camera::stopTracking()
+{
+	trackingPosition = nullptr;
+	trackingRotation = nullptr;
+}
+
+void Camera::tracking()
+{
+	if (trackingPosition == nullptr)   return;
+	if (trackingRotation == nullptr)   return;
+
+	XMMATRIX rotationMatrix = XMMatrixRotationQuaternion(*trackingRotation);
+	XMFLOAT3 localPos;
+	XMStoreFloat3(&localPos, XMVector3Transform(XMLoadFloat3(&localPosition), rotationMatrix));
+
+	position = *trackingPosition + localPos;
+	focus = *trackingPosition;
 }
 
 

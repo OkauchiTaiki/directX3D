@@ -173,20 +173,48 @@ void Object::changeColor(XMFLOAT4 color)
 	}
 }
 
+XMVECTOR Object::getRotation() const
+{
+	return rotation;
+}
+
+void Object::setRotation(const XMVECTOR _rotation)
+{
+	rotation = _rotation;
+}
+
 //‰ñ“]‚³‚¹‚é
 void Object::rotateLocalAxisX(float rotationAngle)
 {
-	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationX(rotationAngle));
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationX(rotationAngle), XMMatrixRotationQuaternion(rotation));
 	rotation = XMQuaternionRotationMatrix(rotationMatrix);
 }
 
 void Object::rotateLocalAxisY(float rotationAngle)
 {
-	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationY(rotationAngle));
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationY(rotationAngle), XMMatrixRotationQuaternion(rotation));
 	rotation = XMQuaternionRotationMatrix(rotationMatrix);
 }
 
 void Object::rotateLocalAxisZ(float rotationAngle)
+{
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationZ(rotationAngle), XMMatrixRotationQuaternion(rotation));
+	rotation = XMQuaternionRotationMatrix(rotationMatrix);
+}
+
+void Object::rotateWorldAxisX(float rotationAngle)
+{
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationX(rotationAngle));
+	rotation = XMQuaternionRotationMatrix(rotationMatrix);
+}
+
+void Object::rotateWorldAxisY(float rotationAngle)
+{
+	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationY(rotationAngle));
+	rotation = XMQuaternionRotationMatrix(rotationMatrix);
+}
+
+void Object::rotateWorldAxisZ(float rotationAngle)
 {
 	XMMATRIX rotationMatrix = XMMatrixMultiply(XMMatrixRotationQuaternion(rotation), XMMatrixRotationZ(rotationAngle));
 	rotation = XMQuaternionRotationMatrix(rotationMatrix);

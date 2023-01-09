@@ -84,10 +84,16 @@ public:
 	//êFÇïœÇ¶ÇÈ
 	void changeColor(XMFLOAT4 color);
 
+	//âÒì]
+	XMVECTOR getRotation() const;
+	void setRotation(const XMVECTOR _rotation);
 	//âÒì]Ç≥ÇπÇÈ
 	void rotateLocalAxisX(float rotationAngle);
 	void rotateLocalAxisY(float rotationAngle);
 	void rotateLocalAxisZ(float rotationAngle);
+	void rotateWorldAxisX(float rotationAngle);
+	void rotateWorldAxisY(float rotationAngle);
+	void rotateWorldAxisZ(float rotationAngle);
 	void rotateQuaternion(XMFLOAT3 axis, float rotationAngle);
 
 protected:

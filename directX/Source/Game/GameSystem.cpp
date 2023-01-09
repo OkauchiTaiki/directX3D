@@ -6,9 +6,10 @@ void GameSystem::initialize()
 {
 	initializeShapes();
 	rectAngle = new RectAngle(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(6.0f, 1.0f, 6.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
-	cube = new Cube(XMFLOAT3(0.0f, 2.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f));
-	line1 = new Line(XMFLOAT3(0.0f, 0.0f, 0.0f), 100.0f, XMFLOAT4(0.6f, 0.6f, 0.6f, 0.6f));
+	player = new Player(new Cube(XMFLOAT3(0.0f, 2.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)));
 	groundLines = new GroundLines();
+
+	Camera::setTracking(&(player->appearance->position), player->getRotation());
 }
 
 // このゲームの時間を進める(処理を実行する)
@@ -27,12 +28,16 @@ void GameSystem::execute()
 	//ゲームの内容
 	//-------------------------------------------
 	{
-		cube->rotateLocalAxisY(0.01f);
-		if (Keyboard::on(DIK_A))   cube->position.x -= 0.02f;
-		if (Keyboard::on(DIK_D))   cube->position.x += 0.02f;
+		//cube->rotateLocalAxisZ(0.01f);
+		player->movePosition();
+		player->changeViewPoint();
+		player->updateAppearance();
+
+		Camera::tracking();
+
 		Object::updateCommon();
 		rectAngle->render();
-		cube->render();
+		player->appearance->render();
 		//groundLines->render();
 	}
 
@@ -48,7 +53,7 @@ void GameSystem::terminate()
 {
 	terminateShapes();
 	delete rectAngle;
-	delete cube;
+	delete player;
 	delete line1;
 	delete line2;
 	delete groundLines;

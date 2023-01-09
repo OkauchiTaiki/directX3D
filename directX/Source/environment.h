@@ -40,13 +40,15 @@ using Microsoft::WRL::ComPtr;
 #include "Input\Mouse.h"
 
 //ゲーム内で使うクラスのヘッダー
+#include "Game\Object\Object.h"
 #include "Game\Camera\Camera.h"
 #include "Game\Light\DirectionalLight.h"
-#include "Game\Object\Object.h"
 #include "Game\Object\Line.h"
 #include "Game\Object\RectAngle.h"
 #include "Game\Object\Cube.h"
 #include "Game\EnvironmentObjects\GroundLines.h"
+
+#include "Game\Character\Player\Player.h"
 
 //ゲーム本体のヘッダー
 #include "Game\GameSystem.h"
