@@ -22,12 +22,12 @@ void Player::movePosition()
 	//移動ベクトルを作る
 	XMFLOAT3 worldMovingVector = {0.0f, 0.0f, 0.0f};
 
-	if (Keyboard::on(DIK_W))   worldMovingVector.z += 0.02f;
-	if (Keyboard::on(DIK_S))   worldMovingVector.z -= 0.02f;
-	if (Keyboard::on(DIK_D))   worldMovingVector.x += 0.02f;
-	if (Keyboard::on(DIK_A))   worldMovingVector.x -= 0.02f;
-	if (Keyboard::on(DIK_Q))   worldMovingVector.y += 0.02f;
-	if (Keyboard::on(DIK_E))   worldMovingVector.y -= 0.02f;
+	if (Keyboard::on(DIK_W))   worldMovingVector.z += 0.04f;
+	if (Keyboard::on(DIK_S))   worldMovingVector.z -= 0.04f;
+	if (Keyboard::on(DIK_D))   worldMovingVector.x += 0.04f;
+	if (Keyboard::on(DIK_A))   worldMovingVector.x -= 0.04f;
+	if (Keyboard::on(DIK_Q))   worldMovingVector.y += 0.04f;
+	if (Keyboard::on(DIK_E))   worldMovingVector.y -= 0.04f;
 
 	//上のままだとワールド座標で移動してしまうのでローカル座標に直す
 	XMMATRIX rotationMatrix = XMMatrixRotationQuaternion(rotation);

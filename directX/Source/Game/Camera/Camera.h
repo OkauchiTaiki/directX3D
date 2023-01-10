@@ -9,7 +9,8 @@ private:
 
 	static XMFLOAT3 position;
 	static XMFLOAT3 focus;
-	static const XMFLOAT3 up;
+	static const XMFLOAT3 defaultUp;
+	static XMFLOAT3 up;
 
 	static const float fov;
 	static const float aspect;

@@ -4,7 +4,7 @@
 //‰Šú‰»
 bool GameScene::initialize()
 {
-	rectAngle = new RectAngle(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(6.0f, 1.0f, 6.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
+	rectAngle = new RectAngle(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(12.0f, 1.0f, 12.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 	player = new Player(new Cube(XMFLOAT3(0.0f, 2.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)));
 	sphere = new Sphere(XMFLOAT3(3.0f, 2.0f, 0.0f), 1.0f, XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f));
 	groundLines = new GroundLines();
@@ -41,5 +41,5 @@ void GameScene::render()
 	rectAngle->render();
 	sphere->render();
 	player->appearance->render();
-	//groundLines->render();
+	groundLines->render();
 }
