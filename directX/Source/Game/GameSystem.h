@@ -38,8 +38,7 @@ private:
 	//------------------------------------
 	RectAngle* rectAngle= nullptr;
 	Player* player = nullptr;
-	Line* line1 = nullptr;
-	Line* line2 = nullptr;
+	Sphere* sphere = nullptr;
 	GroundLines* groundLines = nullptr;
 	float cameraAdditionalPositionX = 0.01f;
 

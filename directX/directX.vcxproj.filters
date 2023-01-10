@@ -114,6 +114,9 @@
     <ClInclude Include="Source\Game\Character\Player\Player.h">
       <Filter>Source\Game\Character\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Object\Sphere.h">
+      <Filter>Source\Game\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp">
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Character\Player\Player.cpp">
       <Filter>Source\Game\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Object\Sphere.cpp">
+      <Filter>Source\Game\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

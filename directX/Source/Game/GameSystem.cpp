@@ -7,6 +7,7 @@ void GameSystem::initialize()
 	initializeShapes();
 	rectAngle = new RectAngle(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(6.0f, 1.0f, 6.0f), XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 	player = new Player(new Cube(XMFLOAT3(0.0f, 2.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)));
+	sphere = new Sphere(XMFLOAT3(3.0f, 2.0f, 0.0f), 1.0f, XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f));
 	groundLines = new GroundLines();
 
 	Camera::setTracking(&(player->appearance->position), player->getRotation());
@@ -38,6 +39,7 @@ void GameSystem::execute()
 		Object::updateCommon();
 		rectAngle->render();
 		player->appearance->render();
+		sphere->render();
 		//groundLines->render();
 	}
 
@@ -54,8 +56,7 @@ void GameSystem::terminate()
 	terminateShapes();
 	delete rectAngle;
 	delete player;
-	delete line1;
-	delete line2;
+	delete sphere;
 	delete groundLines;
 }
 
@@ -65,6 +66,7 @@ void GameSystem::initializeShapes()
 	RectAngle::initializeCommon();
 	Cube::initializeCommon();
 	Line::initializeCommon();
+	Sphere::initializeCommon();
 }
 
 void GameSystem::terminateShapes()
@@ -73,4 +75,5 @@ void GameSystem::terminateShapes()
 	RectAngle::terminateCommon();
 	Cube::terminateCommon();
 	Line::terminateCommon();
+	Sphere::terminateCommon();
 }

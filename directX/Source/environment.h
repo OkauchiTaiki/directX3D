@@ -46,6 +46,7 @@ using Microsoft::WRL::ComPtr;
 #include "Game\Object\Line.h"
 #include "Game\Object\RectAngle.h"
 #include "Game\Object\Cube.h"
+#include "Game\Object\Sphere.h"
 #include "Game\EnvironmentObjects\GroundLines.h"
 
 #include "Game\Character\Player\Player.h"

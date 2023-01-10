@@ -158,6 +158,7 @@
     <ClInclude Include="Source\Game\Object\RectAngle.h" />
     <ClInclude Include="Source\Game\Object\Object.h" />
     <ClInclude Include="Source\Game\Object\Line.h" />
+    <ClInclude Include="Source\Game\Object\Sphere.h" />
     <ClInclude Include="Source\Input\Keyboard.h" />
     <ClInclude Include="Source\Input\Mouse.h" />
     <ClInclude Include="Source\OriginalMath\OriginalMath.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Source\Game\Object\Line.cpp" />
     <ClCompile Include="Source\Game\Object\RectAngle.cpp" />
     <ClCompile Include="Source\Game\Object\Object.cpp" />
+    <ClCompile Include="Source\Game\Object\Sphere.cpp" />
     <ClCompile Include="Source\Input\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse.cpp" />
     <ClCompile Include="Source\OriginalMath\OriginalMath.cpp" />
