@@ -11,6 +11,8 @@ HINSTANCE hInst;                                // 現在のインターフェ�
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
 
+HWND hWnd = NULL;								// ウィンドウのハンドル
+
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -45,10 +47,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // ゲームシステム生成
     GameSystem::createInstance();
 
-    //DirectInput初期化
-    DirectInput::initialize(hInstance);
     // ゲームシステム初期設定
-    GAMESYS.initialize();
+    GAMESYS.initialize(hWnd, hInstance);
 
     // ゲームループ
     while (1)
@@ -73,13 +73,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //============================================
         // ゲームの処理を書く
         //============================================
-
-        DirectInput::KeyManager();
         GAMESYS.execute();
     }
 
     GAMESYS.terminate();
-    DirectInput::terminate();
 
     // Direct3Dインスタンス削除
     Direct3D::DeleteInstance();
@@ -129,7 +126,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // グローバル変数にインスタンス ハンドルを格納する
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
        100, 50, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
@@ -139,8 +136,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // Direct3Dインスタンス作成
    Direct3D::CreateInstance();
-   // Direct3D初期化
-   D3D.Initialize(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);

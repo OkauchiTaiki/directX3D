@@ -6,10 +6,18 @@
 //=========================================
 class GameSystem
 {
+private:
+	//画面をクリアする色
+	static const float clearColor[4];
+	//フレームレートを固定にするためのクラス
+	FrameRateManager frameRateManager = {};
+	//ゲームシーン
+	GameScene* gameScene = nullptr;
+
 public:
 
 	// このゲームの初期設定を行う
-	void initialize();
+	bool initialize(HWND hWnd, HINSTANCE hInst);
 
 	// このゲーム世界の時間を進める(処理を実行する)
 	void execute();
@@ -17,33 +25,18 @@ public:
 	//終了処理
 	void terminate();
 
-	// その他、ゲーム用のデータなどをココに書く
+private:
+	void initializeShapes();
+	void terminateShapes();
 
 //=========================================
-// 今回このクラスも、どこからでもアクセスできるように
-// シングルトンパターンにしておきます。
-// ↓↓↓以下、シングルトンパターンのコード
+//シングルトンパターン
 //=========================================
 private:
 	// 唯一のインスタンス用のポインタ
 	static inline GameSystem* s_instance;
 	// コンストラクタはprivateにする
 	GameSystem() {}
-
-	//フレームレートを固定にするためのクラス
-	FrameRateManager frameRateManager = {};
-
-	//------------------------------------
-	//ゲーム内容のメンバー変数
-	//------------------------------------
-	RectAngle* rectAngle= nullptr;
-	Player* player = nullptr;
-	Sphere* sphere = nullptr;
-	GroundLines* groundLines = nullptr;
-	float cameraAdditionalPositionX = 0.01f;
-
-	void initializeShapes();
-	void terminateShapes();
 
 public:
 	// インスタンス作成

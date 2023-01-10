@@ -28,6 +28,7 @@ public:
 	// height	: 画面の高さ
 	//--------------------------------------------
 	bool Initialize(HWND hWnd, int width, int height);
+	void terminate();
 
 	// 2D描画用のシェーダー
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;	// 頂点シェーダー

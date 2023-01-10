@@ -11,12 +11,12 @@ int				DirectInput::Mouse_y;	// マウスの座標Y
 BYTE			DirectInput::diKeyboard[256];	// キーボード用
 BYTE			DirectInput::oldKeyboard[256];	// 1フレーム前のキーボードの状態
 
-HRESULT DirectInput::initialize(void* hinst)
+HRESULT DirectInput::initialize(HINSTANCE hInst)
 {
 	HRESULT	hr;
 
 	//IDirectInput8インターフェイスの取得
-	hr = DirectInput8Create((HINSTANCE)hinst, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&pDI, NULL);
+	hr = DirectInput8Create(hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&pDI, NULL);
 	if (FAILED(hr))
 	{
 		return hr;

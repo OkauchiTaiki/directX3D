@@ -36,7 +36,7 @@ using Microsoft::WRL::ComPtr;
 
 #include "FrameRateManager\frameRateManager.h"   //フレームレートを管理するクラス
 #include "OriginalMath\OriginalMath.h"           //数学関連の定数や関数
-#include "Input\KeyBoard.h"
+#include "Input\Keyboard.h"
 #include "Input\Mouse.h"
 
 //ゲーム内で使うクラスのヘッダー
@@ -52,4 +52,5 @@ using Microsoft::WRL::ComPtr;
 #include "Game\Character\Player\Player.h"
 
 //ゲーム本体のヘッダー
+#include "Game\Scene\GameScene.h"
 #include "Game\GameSystem.h"

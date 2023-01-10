@@ -14,7 +14,7 @@ private:
 	static BYTE				oldKeyboard[256];	// 1フレーム前のキーボードの状態
 
 public:
-	static HRESULT initialize(void* hinst);
+	static HRESULT initialize(HINSTANCE hInst);
 	static void terminate();
 
 	static void setMousePosition(int x, int y);

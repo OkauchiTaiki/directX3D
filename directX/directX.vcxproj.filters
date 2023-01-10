@@ -49,6 +49,9 @@
     <Filter Include="Source\Game\Character\Player">
       <UniqueIdentifier>{5175c1d7-6b69-4a49-bf18-0dcd2677fd28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Scene">
+      <UniqueIdentifier>{d4c8c62c-d280-4d51-8593-b9776ae5aa03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="Source\Game\Object\Sphere.h">
       <Filter>Source\Game\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Scene\GameScene.h">
+      <Filter>Source\Game\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp">
@@ -172,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Object\Sphere.cpp">
       <Filter>Source\Game\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Scene\GameScene.cpp">
+      <Filter>Source\Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -123,9 +123,6 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	// デバイスコンテキストに描画に関する設定を行っておく
 	//=====================================================
 
-	// バックバッファをRTとしてセット
-	m_deviceContext->OMSetRenderTargets(1, m_backBufferView.GetAddressOf(), nullptr);
-
 	// ビューポートの設定
 	D3D11_VIEWPORT vp = { 0.0f, 0.0f, (float)width, (float)height, 0.0f, 1.0f };
 	m_deviceContext->RSSetViewports(1, &vp);
@@ -182,4 +179,9 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	}
 
 	return true;
+}
+
+void Direct3D::terminate()
+{
+
 }
