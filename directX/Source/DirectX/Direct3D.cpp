@@ -119,6 +119,63 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 
 	m_device->CreateDepthStencilView(pDepthStencilTexture.Get(), &dsDesc, &pDepthStencilView);
 
+	//-----------------------------------------------------
+	//Z値テクスチャもろもろ
+	//-----------------------------------------------------
+	//深度データを書き込むテクスチャを生成
+	//D3D11_TEXTURE2D_DESC renderZTextureDesc;
+	//renderZTextureDesc.Width = (UINT)width;
+	//renderZTextureDesc.Height = (UINT)height;
+	//renderZTextureDesc.MipLevels = 1;
+	//renderZTextureDesc.ArraySize = 1;
+	//renderZTextureDesc.Format = DXGI_FORMAT_R32_FLOAT;
+	//renderZTextureDesc.SampleDesc.Count = 1;
+	//renderZTextureDesc.SampleDesc.Quality = 0;
+	//renderZTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+	//renderZTextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+	//renderZTextureDesc.CPUAccessFlags = 0;
+	//if (FAILED(m_device->CreateTexture2D(&renderZTextureDesc, NULL, &pRenderZTexture)))
+	//{
+	//	return false;
+	//}
+	//// テクスチャをレンダリングターゲットとして扱う為のインターフェースを生成
+	//// (深度データを書き込む為)
+	//if (FAILED(m_device->CreateRenderTargetView(pRenderZTexture.Get(), nullptr, &pRenderZTextureView)))
+	//{
+	//	return false;
+	//}
+
+	//// 深度データのレンダリングに使う深度バッファ(ややこしい)
+	//// こいつをShader resourceとして使う方法があれば単純化出来るかも？
+	//D3D11_TEXTURE2D_DESC depthTextureDesc;
+	//depthTextureDesc.Width = (UINT)width;
+	//depthTextureDesc.Height = (UINT)height;
+	//depthTextureDesc.MipLevels = 1;
+	//depthTextureDesc.ArraySize = 1;
+	//depthTextureDesc.Format = DXGI_FORMAT_D32_FLOAT;
+	//depthTextureDesc.SampleDesc.Count = 1;
+	//depthTextureDesc.SampleDesc.Quality = 0;
+	//depthTextureDesc.Usage = D3D11_USAGE_DEFAULT;
+	//depthTextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	//depthTextureDesc.CPUAccessFlags = 0;
+	//depthTextureDesc.MiscFlags = 0;
+
+	//if (FAILED(m_device->CreateTexture2D(&depthTextureDesc, nullptr, pDepthStencilZTexture.GetAddressOf())))
+	//{
+	//	return false;
+	//}
+
+	//// 深度ステンシルビューの作成
+	//D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
+	//depthStencilViewDesc.Format = depthTextureDesc.Format;
+	//depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
+	//depthStencilViewDesc.Flags = 0;
+
+	//if (FAILED(m_device->CreateDepthStencilView(pDepthStencilZTexture.Get(), &depthStencilViewDesc, pDepthStencilZView.GetAddressOf())))
+	//{
+	//	return false;
+	//}
+
 	//=====================================================
 	// デバイスコンテキストに描画に関する設定を行っておく
 	//=====================================================
@@ -164,6 +221,28 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	{
 		return false;
 	}
+
+	//Z値テクスチャ用のシェーダー
+	//// 頂点シェーダーを読み込み＆コンパイル
+	//if (FAILED(D3DCompileFromFile(L"Shader/ZTextureShader.hlsl", nullptr, nullptr, "ZVS", "vs_5_0", 0, 0, &compiledVS, nullptr)))
+	//{
+	//	return false;
+	//}
+	//// ピクセルシェーダーを読み込み＆コンパイル
+	//if (FAILED(D3DCompileFromFile(L"Shader/ZTextureShader.hlsl", nullptr, nullptr, "ZPS", "ps_5_0", 0, 0, &compiledPS, nullptr)))
+	//{
+	//	return false;
+	//}
+	//// 頂点シェーダー作成
+	//if (FAILED(m_device->CreateVertexShader(compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), nullptr, &m_zVS)))
+	//{
+	//	return false;
+	//}
+	//// ピクセルシェーダー作成
+	//if (FAILED(m_device->CreatePixelShader(compiledPS->GetBufferPointer(), compiledPS->GetBufferSize(), nullptr, &m_zPS)))
+	//{
+	//	return false;
+	//}
 
 	// １頂点の詳細な情報
 	D3D11_INPUT_ELEMENT_DESC layout[] = {

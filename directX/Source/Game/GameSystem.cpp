@@ -36,6 +36,12 @@ void GameSystem::execute()
 	D3D.m_deviceContext->ClearRenderTargetView(D3D.m_backBufferView.Get(), clearColor);
 	D3D.m_deviceContext->ClearDepthStencilView(D3D.pDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
+	//Z値テクスチャ
+	//D3D.m_deviceContext->OMSetRenderTargets(1, D3D.pRenderZTextureView.GetAddressOf(), D3D.pDepthStencilZView.Get());
+	////レンダーターゲットビューと深度ステンシルバッファをクリア
+	//D3D.m_deviceContext->ClearRenderTargetView(D3D.pRenderZTextureView.Get(), clearColor);
+	//D3D.m_deviceContext->ClearDepthStencilView(D3D.pDepthStencilZView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
 	//オブジェクトの描画
 	gameScene->render();
 

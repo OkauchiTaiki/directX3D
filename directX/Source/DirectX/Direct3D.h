@@ -21,6 +21,16 @@ public:
 	ComPtr<ID3D11Texture2D>        pDepthStencilTexture;
 	ComPtr<ID3D11DepthStencilView> pDepthStencilView;
 
+
+	//Z値テクスチャ
+	ComPtr<ID3D11Texture2D>        pRenderZTexture;
+	ComPtr<ID3D11RenderTargetView> pRenderZTextureView;
+	//Z値テクスチャ用の深度ステンシルバッファ
+	ComPtr<ID3D11Texture2D>        pDepthStencilZTexture;
+	ComPtr<ID3D11DepthStencilView> pDepthStencilZView;
+
+
+
 	//--------------------------------------------
 	// Direct3Dを初期化し、使用できるようにする関数
 	// hWnd		: ウィンドウハンドル
@@ -34,6 +44,8 @@ public:
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;	// 頂点シェーダー
 	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;	// ピクセルシェーダー
 	ComPtr<ID3D11VertexShader>	m_lightVS = nullptr;	    // 光源込みの頂点シェーダー
+	ComPtr<ID3D11VertexShader>	m_zVS = nullptr;	// Z値テクスチャ用の頂点シェーダー
+	ComPtr<ID3D11PixelShader>	m_zPS = nullptr;	// Z値テクスチャ用のピクセルシェーダー
 	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;    // 入力レイアウト
 
 	//=========================================
