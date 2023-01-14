@@ -145,13 +145,46 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Source\DirectX\Direct3D.h" />
+    <ClInclude Include="Source\DirectX\DirectInput.h" />
+    <ClInclude Include="Source\DirectX\XMFloatOperator.h" />
+    <ClInclude Include="Source\environment.h" />
+    <ClInclude Include="Source\FrameRateManager\frameRateManager.h" />
+    <ClInclude Include="Source\Game\Camera\Camera.h" />
+    <ClInclude Include="Source\Game\Character\Player\Player.h" />
+    <ClInclude Include="Source\Game\EnvironmentObjects\GroundLines.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
+    <ClInclude Include="Source\Game\Light\DirectionalLight.h" />
+    <ClInclude Include="Source\Game\Object\Cube.h" />
+    <ClInclude Include="Source\Game\Object\RectAngle.h" />
+    <ClInclude Include="Source\Game\Object\Object.h" />
+    <ClInclude Include="Source\Game\Object\Line.h" />
+    <ClInclude Include="Source\Game\Object\Sphere.h" />
+    <ClInclude Include="Source\Game\Scene\GameScene.h" />
+    <ClInclude Include="Source\Input\Keyboard.h" />
+    <ClInclude Include="Source\Input\Mouse.h" />
+    <ClInclude Include="Source\OriginalMath\OriginalMath.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp" />
     <ClCompile Include="Source\DirectX\Direct3D.cpp" />
+    <ClCompile Include="Source\DirectX\DirectInput.cpp" />
+    <ClCompile Include="Source\DirectX\XMFloatOperator.cpp" />
+    <ClCompile Include="Source\FrameRateManager\frameRateManager.cpp" />
+    <ClCompile Include="Source\Game\Camera\Camera.cpp" />
+    <ClCompile Include="Source\Game\Character\Player\Player.cpp" />
+    <ClCompile Include="Source\Game\EnvironmentObjects\GroundLines.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
+    <ClCompile Include="Source\Game\Light\DirectionalLight.cpp" />
+    <ClCompile Include="Source\Game\Object\Cube.cpp" />
+    <ClCompile Include="Source\Game\Object\Line.cpp" />
+    <ClCompile Include="Source\Game\Object\RectAngle.cpp" />
+    <ClCompile Include="Source\Game\Object\Object.cpp" />
+    <ClCompile Include="Source\Game\Object\Sphere.cpp" />
+    <ClCompile Include="Source\Game\Scene\GameScene.cpp" />
+    <ClCompile Include="Source\Input\Keyboard.cpp" />
+    <ClCompile Include="Source\Input\Mouse.cpp" />
+    <ClCompile Include="Source\OriginalMath\OriginalMath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="directX.rc" />

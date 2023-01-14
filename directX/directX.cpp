@@ -1,11 +1,8 @@
 ﻿// directX.cpp : アプリケーションのエントリ ポイントを定義します。
-//
 
 #include "framework.h"
+#include "Source\environment.h"
 #include "directX.h"
-
-#include "Source/DirectX/Direct3D.h"
-#include "Source/Game/GameSystem.h"
 
 #define MAX_LOADSTRING 100
 
@@ -13,6 +10,8 @@
 HINSTANCE hInst;                                // 現在のインターフェイス
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
+
+HWND hWnd = NULL;								// ウィンドウのハンドル
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -47,8 +46,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // ゲームシステム生成
     GameSystem::createInstance();
+
     // ゲームシステム初期設定
-    GAMESYS.initialize();
+    GAMESYS.initialize(hWnd, hInstance);
 
     // ゲームループ
     while (1)
@@ -73,9 +73,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //============================================
         // ゲームの処理を書く
         //============================================
-
         GAMESYS.execute();
     }
+
+    GAMESYS.terminate();
 
     // Direct3Dインスタンス削除
     Direct3D::DeleteInstance();
@@ -125,7 +126,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // グローバル変数にインスタンス ハンドルを格納する
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+   hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
        100, 50, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
@@ -135,8 +136,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // Direct3Dインスタンス作成
    Direct3D::CreateInstance();
-   // Direct3D初期化
-   D3D.Initialize(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -173,6 +172,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
+        }
+        break;
+    case WM_MOUSEMOVE:
+        DirectInput::setMousePosition(LOWORD(lParam), HIWORD(lParam));
+        break;
+    case WM_KEYDOWN:				//キーが押された
+        if (wParam == VK_ESCAPE)	//ESCキー
+        {
+            PostQuitMessage(0);		//アプリケーションを終了する
         }
         break;
     case WM_PAINT:

@@ -1,21 +1,5 @@
 #pragma once
 
-// Direct3Dのライブラリを使用できるようにする
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
-
-// Direct3Dの型・クラス・関数などを呼べるようにする
-#include <d3d11.h>
-#include <d3dcompiler.h>
-
-// DirectXMath(数学ライブラリ)を使用できるようにする
-#include <DirectXMath.h>
-
-// ComPtrを使用できるようにする
-#include <wrl/client.h>
-using Microsoft::WRL::ComPtr;
-
 //=========================================
 // Direct3Dクラス
 //=========================================
@@ -33,6 +17,19 @@ public:
 	ComPtr<IDXGISwapChain>		m_swapChain;
 	// バックバッファーのRTビュー
 	ComPtr<ID3D11RenderTargetView> m_backBufferView;
+	//深度ステンシルバッファ
+	ComPtr<ID3D11Texture2D>        pDepthStencilTexture;
+	ComPtr<ID3D11DepthStencilView> pDepthStencilView;
+
+
+	//Z値テクスチャ
+	ComPtr<ID3D11Texture2D>        pRenderZTexture;
+	ComPtr<ID3D11RenderTargetView> pRenderZTextureView;
+	//Z値テクスチャ用の深度ステンシルバッファ
+	ComPtr<ID3D11Texture2D>        pDepthStencilZTexture;
+	ComPtr<ID3D11DepthStencilView> pDepthStencilZView;
+
+
 
 	//--------------------------------------------
 	// Direct3Dを初期化し、使用できるようにする関数
@@ -41,11 +38,15 @@ public:
 	// height	: 画面の高さ
 	//--------------------------------------------
 	bool Initialize(HWND hWnd, int width, int height);
+	void terminate();
 
 	// 2D描画用のシェーダー
 	ComPtr<ID3D11VertexShader>	m_spriteVS = nullptr;	// 頂点シェーダー
 	ComPtr<ID3D11PixelShader>	m_spritePS = nullptr;	// ピクセルシェーダー
-	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;// 入力レイアウト
+	ComPtr<ID3D11VertexShader>	m_lightVS = nullptr;	    // 光源込みの頂点シェーダー
+	ComPtr<ID3D11VertexShader>	m_zVS = nullptr;	// Z値テクスチャ用の頂点シェーダー
+	ComPtr<ID3D11PixelShader>	m_zPS = nullptr;	// Z値テクスチャ用のピクセルシェーダー
+	ComPtr<ID3D11InputLayout>	m_spriteInputLayout = nullptr;    // 入力レイアウト
 
 	//=========================================
 	// 今回このクラスは、どこからでもアクセスできるように
