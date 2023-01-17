@@ -15,6 +15,16 @@ struct ConstantBuffer {
 	XMFLOAT4   light;
 };
 
+enum ObjectType
+{
+	OBJECT_LINE,
+	OBJECT_RECTANGLE,
+	OBJECT_CUBE,
+	OBJECT_SPHERE,
+
+	OBJECT_TYPE_NUM,
+};
+
 class Object
 {
 public:
@@ -48,6 +58,8 @@ protected:
 public:
 	Object(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color, int vertexNum);
 	virtual ~Object();
+
+	virtual int getType() const = 0;
 
 	//静的共通データ初期化
 	static bool initializeCommon();

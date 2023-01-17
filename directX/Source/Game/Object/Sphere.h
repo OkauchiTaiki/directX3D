@@ -18,6 +18,8 @@ public:
 	Sphere(XMFLOAT3 _position, float radius, XMFLOAT4 color);
 	~Sphere() override;
 
+	int getType() const { return OBJECT_SPHERE; }
+
 	//静的共通データ初期化
 	static bool initializeCommon();
 

@@ -15,6 +15,8 @@ public:
 	RectAngle(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color);
 	~RectAngle() override;
 
+	int getType() const { return OBJECT_RECTANGLE; }
+
 	//静的共通データ初期化
 	static bool initializeCommon();
 

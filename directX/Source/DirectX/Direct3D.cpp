@@ -134,6 +134,7 @@ bool Direct3D::Initialize(HWND hWnd, int width, int height)
 	//renderZTextureDesc.Usage = D3D11_USAGE_DEFAULT;
 	//renderZTextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 	//renderZTextureDesc.CPUAccessFlags = 0;
+	//renderZTextureDesc.MiscFlags = 0;
 	//if (FAILED(m_device->CreateTexture2D(&renderZTextureDesc, NULL, &pRenderZTexture)))
 	//{
 	//	return false;
