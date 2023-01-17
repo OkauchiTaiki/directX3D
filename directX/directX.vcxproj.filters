@@ -55,6 +55,9 @@
     <Filter Include="Source\Game\Character\Bullet">
       <UniqueIdentifier>{d806e5ff-e615-4498-8073-7e0ef80d21d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Game\Character\Enemy">
+      <UniqueIdentifier>{76cee296-5d4a-455a-9a6e-8ec3e3145318}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -129,6 +132,9 @@
     <ClInclude Include="Source\Game\Character\Bullet\Bullet.h">
       <Filter>Source\Game\Character\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Character\Enemy\Enemy.h">
+      <Filter>Source\Game\Character\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="directX.cpp">
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Character\Bullet\Bullet.cpp">
       <Filter>Source\Game\Character\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Character\Enemy\Enemy.cpp">
+      <Filter>Source\Game\Character\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

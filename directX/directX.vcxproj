@@ -151,6 +151,7 @@
     <ClInclude Include="Source\FrameRateManager\frameRateManager.h" />
     <ClInclude Include="Source\Game\Camera\Camera.h" />
     <ClInclude Include="Source\Game\Character\Bullet\Bullet.h" />
+    <ClInclude Include="Source\Game\Character\Enemy\Enemy.h" />
     <ClInclude Include="Source\Game\Character\Player\Player.h" />
     <ClInclude Include="Source\Game\EnvironmentObjects\GroundLines.h" />
     <ClInclude Include="Source\Game\GameSystem.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="Source\FrameRateManager\frameRateManager.cpp" />
     <ClCompile Include="Source\Game\Camera\Camera.cpp" />
     <ClCompile Include="Source\Game\Character\Bullet\Bullet.cpp" />
+    <ClCompile Include="Source\Game\Character\Enemy\Enemy.cpp" />
     <ClCompile Include="Source\Game\Character\Player\Player.cpp" />
     <ClCompile Include="Source\Game\EnvironmentObjects\GroundLines.cpp" />
     <ClCompile Include="Source\Game\GameSystem.cpp" />
