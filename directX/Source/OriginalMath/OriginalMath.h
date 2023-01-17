@@ -4,5 +4,6 @@
 class OriginalMath
 {
 public:
+	static float getVectorLength(XMFLOAT3 vector);
 
 };

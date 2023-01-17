@@ -43,6 +43,7 @@ using Microsoft::WRL::ComPtr;
 #include "Game\Object\Object.h"
 #include "Game\Camera\Camera.h"
 #include "Game\Light\DirectionalLight.h"
+#include "Game\CollisionDetection\CollisionDetection.h"
 #include "Game\Object\Line.h"
 #include "Game\Object\RectAngle.h"
 #include "Game\Object\Cube.h"

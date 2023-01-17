@@ -15,6 +15,8 @@ public:
 	Line(XMFLOAT3 _position, float _size, XMFLOAT4 color);
 	~Line() override;
 
+	int getType() const { return OBJECT_LINE; }
+
 	//静的共通データ初期化
 	static bool initializeCommon();
 

@@ -15,11 +15,15 @@ public:
 	Cube(XMFLOAT3 _position, XMFLOAT3 _size, XMFLOAT4 color);
 	~Cube() override;
 
+	int getType() const { return OBJECT_CUBE; }
+
 	//静的共通データ初期化
 	static bool initializeCommon();
 
 	//静的共通データ削除
 	static void terminateCommon();
+
+	
 
 private:
 	//頂点データへの各種情報の設定
