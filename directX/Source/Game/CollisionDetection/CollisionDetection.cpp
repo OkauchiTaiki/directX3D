@@ -93,5 +93,5 @@ CollisionDetectionResult cubeAndSphere(const Object* object1, const Object* obje
 
 CollisionDetectionResult sphereAndSphere(const Object* sphere1, const Object* sphere2)
 {
-	float distance = sphere1->position - sphere2->position
+
 }
