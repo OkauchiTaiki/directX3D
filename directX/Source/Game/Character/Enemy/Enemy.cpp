@@ -1,9 +1,15 @@
 #include "framework.h"
 #include "Source\environment.h"
+#include <time.h>
+
+
+XMFLOAT3 Random(int max, int min);
 
 Enemy::Enemy(Cube* _appearance) : appearance(_appearance)
 {
 	respawnPosition = appearance->position;
+	//@—”‰Šú‰»
+	srand((unsigned int)time(NULL));
 }
 
 Enemy::~Enemy()
@@ -39,7 +45,20 @@ void Enemy::checkRespawn()
 
 void Enemy::respawn()
 {
+	XMFLOAT3 RespawnPosition = Random(5, -5);
+
 	count = 0;
 	appearance->enableAll();
-	appearance->position = respawnPosition;
+	appearance->position = RespawnPosition;
+}
+
+XMFLOAT3 Random(int max,int min)
+{
+
+	float random_x = min + (float)(rand()) / ((float)(RAND_MAX / (max - min)));
+	float random_y = 0 + (float)(rand()) / ((float)(RAND_MAX / (max - 0)));
+	float random_z = min + (float)(rand()) / ((float)(RAND_MAX / (max - min)));
+
+	XMFLOAT3 RespawnPosition = { random_x,random_y,random_z };
+	return RespawnPosition;
 }
