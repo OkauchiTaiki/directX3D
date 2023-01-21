@@ -45,11 +45,11 @@ void Enemy::checkRespawn()
 
 void Enemy::respawn()
 {
-	XMFLOAT3 RespawnPosition = Random(5, -5);
+	respawnPosition = Random(5, -5);
 
 	count = 0;
 	appearance->enableAll();
-	appearance->position = RespawnPosition;
+	appearance->position = respawnPosition;
 }
 
 XMFLOAT3 Random(int max,int min)
