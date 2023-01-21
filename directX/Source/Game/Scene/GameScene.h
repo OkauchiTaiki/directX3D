@@ -7,9 +7,12 @@ public:
 	~GameScene() {}
 
 private:
-	RectAngle* rectAngle = nullptr;
+	RectAngle* rectangle = nullptr;
 	Player* player = nullptr;
+	std::vector<Enemy*> enemys{ 3 , nullptr};
+	std::vector<Bullet*> bullets{ 15 , nullptr };
 	Sphere* sphere = nullptr;
+	Cube* cube = nullptr;
 	GroundLines* groundLines = nullptr;
 	float cameraAdditionalPositionX = 0.01f;
 

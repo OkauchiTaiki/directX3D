@@ -25,9 +25,10 @@ public:
 
 	void render() override;
 
-private:
 	//頂点データへの各種情報の設定
 	void setVertexPosition() override;
+
+private:
 	ID3D11Buffer* getIndexBuffer() override;
 	int getIndexNum() override;
 };

@@ -11,6 +11,8 @@ bool GameSystem::initialize(HWND hWnd, HINSTANCE hInst)
 	DirectInput::initialize(hInst);
 
 	initializeShapes();
+	CollisionDetection::initializeCollisionDetection();
+	srand((unsigned int)time(NULL));
 
 	gameScene = new GameScene();
 	gameScene->initialize();

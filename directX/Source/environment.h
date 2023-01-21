@@ -50,7 +50,9 @@ using Microsoft::WRL::ComPtr;
 #include "Game\Object\Sphere.h"
 #include "Game\EnvironmentObjects\GroundLines.h"
 
+#include "Game\Character\Bullet\Bullet.h"
 #include "Game\Character\Player\Player.h"
+#include "Game\Character\Enemy\Enemy.h"
 
 //ゲーム本体のヘッダー
 #include "Game\Scene\GameScene.h"

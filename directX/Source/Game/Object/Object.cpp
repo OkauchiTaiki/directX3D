@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "Source\environment.h"
 
+const XMFLOAT3 Object::worldFrontVector = { 0.0f, 0.0f, 1.0f };
+
 ID3D11Buffer* Object::pConstantBuffer = NULL;
 ConstantBuffer Object::constantBuffer = {};
 UINT Object::vertexStrides = sizeof(Vertex);
@@ -153,13 +155,13 @@ void Object::disableAll()
 }
 
 //実行状態の取得
-bool Object::isPossibleExecuting() const
+bool Object::isExecuting() const
 {
 	return canExecute;
 }
 
 //描画状態の取得
-bool Object::isPossibleRendering() const
+bool Object::isRendering() const
 {
 	return canRender;
 }
@@ -223,6 +225,12 @@ void Object::rotateWorldAxisZ(float rotationAngle)
 void Object::rotateQuaternion(XMFLOAT3 axis, float rotationAngle)
 {
 	rotation = XMQuaternionRotationAxis(XMVectorSet(axis.x, axis.y, axis.z, 0.0f), rotationAngle);
+}
+
+XMFLOAT3 Object::getFrontVector()
+{
+	XMFLOAT3 localFrontVector = OriginalMath::multiplyMatrix(worldFrontVector, XMMatrixRotationQuaternion(rotation));
+	return localFrontVector;
 }
 
 //頂点データへの各種情報の設定

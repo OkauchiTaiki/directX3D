@@ -3,7 +3,7 @@
 
 Enemy::Enemy(Cube* _appearance) : appearance(_appearance)
 {
-	count = 0;
+	respawnPosition = appearance->position;
 }
 
 Enemy::~Enemy()
@@ -11,19 +11,35 @@ Enemy::~Enemy()
 	delete appearance;
 }
 
-const XMVECTOR* Enemy::getRotation() const
-{
-	return &rotation;
-}
-
 void Enemy::movePosition()
 {
-	//ˆÚ“®ƒxƒNƒgƒ‹‚ðì‚é
 	count++;
 
-	float moveY = sinf(count / 10) / 20;
+	float moveY = sinf(count / 20) / 20;
 
 	XMFLOAT3 worldMovingVector = { 0.0f, moveY, 0.0f };
 
 	appearance->position = appearance->position + worldMovingVector;
+}
+
+void Enemy::die()
+{
+	respawnFrameCount = 0;
+	appearance->disableAll();
+}
+
+void Enemy::checkRespawn()
+{
+	respawnFrameCount++;
+	if (respawnFrameCount >= respawnFrame)
+	{
+		respawn();
+	}
+}
+
+void Enemy::respawn()
+{
+	count = 0;
+	appearance->enableAll();
+	appearance->position = respawnPosition;
 }

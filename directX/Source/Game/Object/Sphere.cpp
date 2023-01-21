@@ -4,7 +4,7 @@
 ID3D11Buffer* Sphere::pIndexBuffer = NULL;
 WORD Sphere::indexList[indexListSize] = { 0 };
 
-Sphere::Sphere(XMFLOAT3 _position, float radius, XMFLOAT4 color) : Object(_position, XMFLOAT3(radius, radius, radius), color, vertexNum)
+Sphere::Sphere(XMFLOAT3 _position, float radius, XMFLOAT4 color) : Object(_position, XMFLOAT3(radius * 2.0f, radius * 2.0f, radius * 2.0f), color, vertexNum)
 {
 	
 }
@@ -63,19 +63,20 @@ void Sphere::setVertexPosition()
 	for (int i = 0; i <= verticalFaceNum; i++)
 	{
 		float ph = PI * (float)i / (float)verticalFaceNum;
-		float y = scale.y * cosf(ph);
+		float y = size.y * scale.y / 2.0f * cosf(ph);
 		float r = sinf(ph);
 		for (int j = 0; j <= horizontalFaceNum; j++)
 		{
 			float th = 2.0f * PI * (float)j / (float)horizontalFaceNum;
-			float x = scale.x * r * cosf(th);
-			float z = scale.z * r * sinf(th);
+			float x = size.x * scale.x / 2.0f * r * cosf(th);
+			float z = size.z * scale.z / 2.0f * r * sinf(th);
 
 			int index = (horizontalFaceNum + 1) * i + j;
 			vertex[index].pos = { x, y, z };
 
 			//法線ベクトル
 			vertex[index].normal = vertex[index].pos;
+			vertex[index].normal = OriginalMath::normalize(vertex[index].normal);
 		}
 	}
 

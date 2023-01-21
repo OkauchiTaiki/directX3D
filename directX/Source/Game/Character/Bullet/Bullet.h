@@ -9,15 +9,20 @@ public:
 	//Œ©‚½–Ú
 	Sphere* appearance;
 private:
-	const float speed = 3.0f;
-	XMFLOAT3 moveVector;
+	static const float survivalLimitedRangeX;
+	static const float survivalLimitedRangeY;
+	static const float survivalLimitedRangeZ;
+	static const float speed;
+	XMFLOAT3 moveVector{};
 
 public:
-	void generateBullet(XMFLOAT3 moveVec);
+	void generateBullet(XMFLOAT3 moveVec, XMFLOAT3 position);
 
 	void move();
 
-	void death();
+	bool existOutsideTheLimitedRange();
+
+	void die();
 
 };
 

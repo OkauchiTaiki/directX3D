@@ -28,6 +28,9 @@ enum ObjectType
 class Object
 {
 public:
+	//オブジェクトの正面方向
+	static const XMFLOAT3 worldFrontVector;
+
 	//座標
 	XMFLOAT3 position;
 	//サイズ
@@ -89,9 +92,9 @@ public:
 	void disableAll();
 
 	//実行状態の取得
-	bool isPossibleExecuting() const;
+	bool isExecuting() const;
 	//描画状態の取得
-	bool isPossibleRendering() const;
+	bool isRendering() const;
 
 	//色を変える
 	void changeColor(XMFLOAT4 color);
@@ -108,7 +111,9 @@ public:
 	void rotateWorldAxisZ(float rotationAngle);
 	void rotateQuaternion(XMFLOAT3 axis, float rotationAngle);
 
-protected:
+	//正面方向の取得
+	XMFLOAT3 getFrontVector();
+
 	//頂点データへの各種情報の設定
 	virtual void setVertexPosition();
 

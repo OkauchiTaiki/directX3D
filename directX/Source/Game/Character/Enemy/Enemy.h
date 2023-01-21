@@ -10,17 +10,20 @@ public:
 	Cube* appearance;
 
 private:
-	//Z軸回転のアニメーションを無視したクォータニオン
-	XMVECTOR rotation = XMQuaternionIdentity();
-	//Z軸回転の量
-	float rotationZ = 0.0f;
+	//生成されてからのフレーム　カウント
+	int count = 0;
+
+	//リスポーン関係
+	static const int respawnFrame = 40;
+	int respawnFrameCount = 0;
+	XMFLOAT3 respawnPosition{};
 
 public:
-	const XMVECTOR* getRotation() const;
-
 	//位置の移動
 	void movePosition();
+	
+	void die();
 
-	//生成されてからのフレーム　カウント
-	int count;
+	void checkRespawn();
+	void respawn();
 };
